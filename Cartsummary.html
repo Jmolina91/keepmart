@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Summary</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+/* Importing modern fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* General Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Order Summary Container */
+.order-summary {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+/* Heading for Order Summary */
+.order-summary h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #343a40;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Order Summary Paragraphs */
+.order-summary p {
+    font-size: 18px;
+    color: #495057;
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Span styling for emphasis */
+.order-summary p span {
+    font-size: 18px;
+    color: #212529;
+    font-weight: 500;
+}
+
+/* Button styling */
+.checkout-btn, .cancel-button, .manual-checkout-btn {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+    padding: 14px 20px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.checkout-btn {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.checkout-btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cancel-button {
+    background-color: #dc3545;
+    color: #ffffff;
+    margin-top: 15px;
+}
+
+.cancel-button:hover {
+    background-color: #c82333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .order-summary {
+        padding: 20px;
+    }
+
+    .order-summary h3 {
+        font-size: 24px;
+    }
+
+    .order-summary p {
+        font-size: 16px;
+    }
+
+    .checkout-btn, .cancel-button {
+        font-size: 16px;
+        padding: 12px 15px;
+    }
+}
+
+/* Main container for cart */
+.cart-container {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.cart-header {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #343a40;
+}
+
+/* Styling for cart summary and order summary */
+.cart-summary, .order-summary {
+    margin-bottom: 30px;
+}
+
+/* Shipping info styling */
+.shipping-info {
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid #ced4da;
+}
+
+/* Styling for free shipping and zipcode */
+.free-shipping, .zipcode {
+    color: #007bff;
+    font-weight: 500;
+}
+
+/* Cart items styling */
+.cart-items .item {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Item details styling */
+.item-details {
+    display: flex;
+    align-items: flex-start;
+}
+
+.item-details img {
+    max-width: 140px;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+.item-info {
+    flex: 1;
+}
+
+/* Title, price, and other item details */
+.item-title {
+    font-weight: 700;
+    font-size: 22px;
+    color: #343a40;
+    margin-bottom: 10px;
+}
+
+.item-price {
+    color: #ff5722;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #868e96;
+    margin-right: 10px;
+}
+
+.savings {
+    color: #28a745;
+    font-weight: 700;
+}
+
+.free-returns, .gift-eligible {
+    color: #007bff;
+    margin-top: 5px;
+}
+
+/* Quantity controls */
+.item-quantity {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.quantity-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-btn:hover {
+    background-color: #e2e6ea;
+}
+
+.quantity {
+    padding: 0 10px;
+    font-size: 18px;
+}
+
+/* Order Summary Container */
+.order-summary {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 900px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Heading for Order Summary */
+.order-summary h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #343a40;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Order Details Container */
+.order-details {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Individual Order Item */
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Label and Value styling */
+.label {
+    font-size: 16px;
+    color: #495057;
+    font-weight: 500;
+}
+
+.value {
+    font-size: 18px;
+    color: #212529;
+    font-weight: 700;
+}
+
+/* Total Amount Styling */
+.total-amount {
+    border-top: 2px solid #007bff;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .order-summary {
+        padding: 20px;
+    }
+
+    .order-summary h3 {
+        font-size: 24px;
+    }
+
+    .label, .value {
+        font-size: 16px;
+    }
+
+    .order-item {
+        padding: 10px 0;
+    }
+}
+
+.manual-checkout-btn {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.manual-checkout-btn:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <div class="cart-header">
+            <h2>Cart Summary</h2>
+        </div>
+        
+        <div class="cart-summary">
+            <div class="shipping-info">
+                <p class="free-shipping">Free shipping, arrives between <span id="start-date"></span> – <span id="end-date"></span></p>
+                <p class="zipcode">95829</p>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div id="cart-items"></div>
+            <div class="order-details">
+                <div class="order-item">
+                    <span class="label">Total Purchase:</span>
+                    <span id="cart-total" class="value">₱0.00</span>
+                </div>
+                <div class="order-item">
+                    <span class="label">Shipping:</span>
+                    <span class="value">Free</span>
+                </div>
+                <div class="order-item">
+                    <span class="label">Taxes:</span>
+                    <span class="value">Calculated at checkout</span>
+                </div>
+                <div class="order-item total-amount">
+                    <span class="label">Total Amount:</span>
+                    <span id="estimated-total" class="value">₱0.00</span>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="checkout-btn" onclick="redirectToCheckout()">Continue to Checkout</button>
+                <button class="manual-checkout-btn" onclick="manualCheckout()">Manual Checkout</button>
+                <button class="cancel-button" onclick="cancelOrder()">Cancel Order</button>
+            </div>
+        </div>
+
+        <script>
+            function redirectToCheckout() {
+                window.location.href = 'CHECKOUTRETAIL.html';
+            }
+
+            function cancelOrder() {
+                const cartSummary = JSON.parse(localStorage.getItem("cartSummary")) || {};
+
+                if (Object.keys(cartSummary).length === 0) {
+                    alert("No order to cancel.");
+                    return;
+                }
+
+                const now = new Date().toISOString();
+                const canceledOrder = {
+                    timestamp: now,
+                    items: cartSummary,
+                    status: 'canceled'
+                };
+
+                const canceledOrders = JSON.parse(localStorage.getItem("canceledOrders")) || [];
+                canceledOrders.push(canceledOrder);
+                localStorage.setItem("canceledOrders", JSON.stringify(canceledOrders));
+
+                let products = JSON.parse(localStorage.getItem("products")) || [];
+                products = products.map(product => {
+                    if (cartSummary[product.id]) {
+                        product.stock += cartSummary[product.id].quantity;
+                        product.stockonshelf += cartSummary[product.id].quantity;
+                    }
+                    return product;
+                });
+
+                localStorage.setItem("products", JSON.stringify(products));
+                localStorage.removeItem("cartSummary");
+                document.getElementById("cart-items").innerHTML = "<p>Your cart is empty.</p>";
+                document.getElementById("cart-total").textContent = "₱0.00";
+
+                alert("Your order has been canceled and saved.");
+                window.location.href = 'main2.html';
+            }
+
+            function manualCheckout() {
+    // Retrieve cart details from localStorage
+    const cartSummary = JSON.parse(localStorage.getItem("cartSummary")) || {};
+
+    // Check if cart is empty
+    if (Object.keys(cartSummary).length === 0) {
+        alert("Your cart is empty. Please add items before checking out.");
+        return;
+    }
+
+    // Calculate the total amount
+    let totalAmount = 0;
+    for (const [id, item] of Object.entries(cartSummary)) {
+        totalAmount += item.price * item.quantity; // calculate total based on price * quantity
+    }
+
+    // Generate the order number
+    let orderNumber = localStorage.getItem("lastOrderNumber") || 0;
+    orderNumber = parseInt(orderNumber) + 1;  // Increment the last order number
+    localStorage.setItem("lastOrderNumber", orderNumber);
+
+    // Prepare the order details
+    const now = new Date().toISOString();
+    const orderDetails = {
+        orderNumber: orderNumber,
+        timestamp: now,
+        items: cartSummary,
+        totalAmount: totalAmount.toFixed(2),
+        status: 'completed'
+    };
+
+    // Save the order to localStorage
+    const orderHistory = JSON.parse(localStorage.getItem("orderHistory")) || [];
+    orderHistory.push(orderDetails);
+    localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
+
+    // Clear the cart after successful checkout
+    localStorage.removeItem("cartSummary");
+
+    // Update the cart UI
+    document.getElementById("cart-items").innerHTML = "<p>Your cart is empty.</p>";
+    document.getElementById("cart-total").textContent = "₱0.00";
+    document.getElementById("estimated-total").textContent = "₱0.00";
+
+    // Notify user and redirect
+    alert(`Order #${orderNumber} has been successfully placed.`);
+    window.location.href = 'manual_checkout_page.html';  // Redirect to order confirmation page
+}
+
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const cartItemsElement = document.getElementById("cart-items");
+                const cartTotalElement = document.getElementById("cart-total");
+
+                const cartSummary = JSON.parse(localStorage.getItem("cartSummary")) || {};
+                
+                let cartHTML = "";
+                let total = 0;
+
+                if (Object.keys(cartSummary).length === 0) {
+                    cartItemsElement.innerHTML = "<p>Your cart is empty.</p>";
+                    cartTotalElement.textContent = "₱0.00";
+                } else {
+                    for (const [id, item] of Object.entries(cartSummary)) {
+                        const itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+
+                        cartHTML += `
+                            <div class="cart-item">
+                                <img src="${item.imgSrc}" alt="Product Image" style="width: 50px; height: auto;">
+                                <div>
+                                    <p>${item.title}</p>
+                                    <p>${item.description}</p>
+                                    <p>${item.price}</p>
+                                    <p>Quantity: ${item.quantity}</p>
+                                    <p>₱${itemTotal.toFixed(2)}</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    cartItemsElement.innerHTML = cartHTML;
+                    cartTotalElement.textContent = `₱${total.toFixed(2)}`;
+                }
+
+                const today = new Date();
+                const daysUntilSaturday = (6 - today.getDay() + 7) % 7;
+                const daysUntilSunday = daysUntilSaturday + 1;
+
+                const nextSaturday = new Date(today);
+                nextSaturday.setDate(today.getDate() + daysUntilSaturday);
+
+                const nextSunday = new Date(today);
+                nextSunday.setDate(today.getDate() + daysUntilSunday);
+
+                const options = { weekday: 'short', month: 'short', day: 'numeric' };
+                const startDateFormatted = nextSaturday.toLocaleDateString('en-US', options);
+                const endDateFormatted = nextSunday.toLocaleDateString('en-US', options);
+
+                document.querySelector(".free-shipping").innerHTML = `Free shipping, arrives between ${startDateFormatted} – ${endDateFormatted}`;
+            });
+        </script>
+</body>
+
+</html>

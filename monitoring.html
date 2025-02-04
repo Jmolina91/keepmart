@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Monitoring</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .order-section {
+            width: 48%;
+            padding: 15px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .order-section h2 {
+            margin-top: 0;
+            font-size: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .order-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+        .order-item:hover {
+            background-color: #f0f0f0;
+        }
+        .order-item.ongoing {
+            background-color: #fff4cc; /* Light yellow for ongoing orders */
+            border-color: #f7e9a4; /* Slightly darker yellow for border */
+        }
+        .order-item.complete {
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+        .order-item p {
+            margin: 5px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>ORDERS</h2>
+            <ul>
+                <li><a href="monitoring.html">Monitoring</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="order-section" id="ongoing-orders">
+                <h2>Ongoing Orders</h2>
+                <div id="ongoing-orders-list">
+                    <!-- Ongoing orders will be dynamically added here -->
+                </div>
+            </div>
+            <div class="order-section" id="complete-orders">
+                <h2>Complete Orders</h2>
+                <div id="complete-orders-list">
+                    <!-- Complete orders will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ongoingOrdersElement = document.getElementById('ongoing-orders-list');
+        const completeOrdersElement = document.getElementById('complete-orders-list');
+        let allOrders = JSON.parse(localStorage.getItem('ORDERS')) || [];
+
+        function updateOrderMonitoring() {
+            ongoingOrdersElement.innerHTML = '';
+            completeOrdersElement.innerHTML = '';
+
+            if (allOrders.length === 0) {
+                const noOrdersMessage = document.createElement('p');
+                noOrdersMessage.textContent = 'No orders found.';
+                ongoingOrdersElement.appendChild(noOrdersMessage);
+                completeOrdersElement.appendChild(noOrdersMessage.cloneNode(true));
+                return;
+            }
+
+            // Filter ongoing and completed orders
+            const ongoingOrders = allOrders.filter(order => order.status === 'ONGOING');
+            const completedOrders = allOrders.filter(order => order.status === 'COMPLETE');
+
+            // Sort completed orders by orderNumber in descending order
+            completedOrders.sort((a, b) => b.orderNumber - a.orderNumber);
+            const latestCompletedOrders = completedOrders.slice(0, 5);
+
+            // Render ongoing orders
+            ongoingOrders.forEach((order, index) => {
+                const orderItem = document.createElement('div');
+                orderItem.classList.add('order-item', 'ongoing');
+                orderItem.innerHTML = `
+                    <div>
+                        <strong>Order #${order.orderNumber}</strong>
+                        <p>Status: ${order.status}</p>
+                        <p style="color: blue;">Please wait....</p>
+                        <p>Note: We are preparing your order thank you!</p>
+                        <!-- Removed Timer Display -->
+                    </div>
+                `;
+                ongoingOrdersElement.appendChild(orderItem);
+            });
+
+            // Render the latest 5 completed orders
+            latestCompletedOrders.forEach(order => {
+                const orderItem = document.createElement('div');
+                orderItem.classList.add('order-item', 'complete');
+                orderItem.innerHTML = `
+                    <div>
+                        <strong>Order #${order.orderNumber}</strong>
+                        <p>Status: ${order.status}</p>
+                        <p style="color: green;">Complete</p>
+                        <p>Note: Order has been completed.</p>
+                    </div>
+                `;
+                completeOrdersElement.appendChild(orderItem);
+            });
+        }
+
+        updateOrderMonitoring();
+
+        // Refresh page every minute (60000 milliseconds)
+        setInterval(() => {
+            window.location.reload();
+        }, 60000);
+    });
+</script>
+
+</body>
+</html>

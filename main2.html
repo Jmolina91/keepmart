@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css"> <!-- Add your CSS file here -->
+    <title>SWIF-T MART</title>
+</head>
+<body>
+   <header>
+    <div class="top-bar">
+        <div class="left-section">
+            <img src="https://i.ibb.co/c3Kn5hS/keep-mart-high-resolution-logo-transparent-1-1.png" class="logo">
+        </div>
+
+
+<!-- Search Bar -->
+ <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search everything at Keepmart online and in store">
+    <button id="search-button" class="search-button">
+        <img src="https://i.ibb.co/x7ks46Q/png-shopping-cart-33838-4.png" alt="Search" style="width: 24px; height: 24px; vertical-align: middle;">
+    </button>
+</div>
+
+
+
+
+
+<button id="logoutButton">
+    <i class="fas fa-sign-out-alt"></i> Logout
+</button>
+  <div id="user-name" class="user-name"></div> <!-- User's name will be displayed here -->
+
+  <div class="right-section">
+    <a href="#" class="cart" id="cart-icon">
+        <img src="https://i.ibb.co/1TRk0Rb/png-shopping-cart-33838-2.png" alt="Cart" style="width: 24px; height: 24px; vertical-align: middle;">
+        <span class="cart-amount">₱0.00</span>
+    </a>
+
+
+
+        </div>
+    </div>
+    <nav class="savings-nav">
+        <ul>
+            <li><a href="#">Departments</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Summer Savings</a></li>
+            <li><a href="#">Grocery & Essentials</a></li>
+            <li><a href="#">Back To School</a></li>
+            <li><a href="#">Summer Shop</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Fashion</a></li>
+            <li><a href="#">Baby</a></li>
+            <li><a href="#">Toys</a></li>
+            <li><a href="#">Registry</a></li>
+            <li><a href="#">ONE Debit</a></li>
+            <li><a href="#">Keepmart+</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="cart-summary" id="cart-summary" style="display: none;">
+    <button class="close-btn" id="close-btn">X</button>
+    <h3>Cart Summary</h3>
+<div class="slider-container">
+    <button class="slider-prev" id="slider-prev">&#10094;</button>
+    <div id="cart-items" class="slider-items"></div>
+    <button class="slider-next" id="slider-next">&#10095;</button>
+</div>
+    <h3>Total: <span id="cart-total">₱ 0.00</span></h3>
+    <button class="proceed-to-order" id="proceed-to-order">Proceed to Order</button>
+</div>
+
+
+    <main>
+        <section class="savings-banner">
+            <div class="banner-text">
+                <h1>1,000s of hot prices</h1>
+                <p>Rollbacks & more<br>Hurry for sizzling savings—go, go, go</p>
+            </div>
+        </section>
+
+        <section class="savings-categories">
+            <div class="filters">
+                <button>All filters</button>
+                <button>In-store</button>
+                <button>Price</button>
+                <button>Brand</button>
+                <button>Fulfillment Speed</button>
+            </div>
+            <div class="categories">
+                <input type="text" placeholder="Search in savings">
+                <div class="category-icons">
+                    <!-- Categories -->
+                    <div class="category">
+                        <a href="flash-deals.html" class="plain-link">
+                            <img src="https://i.ibb.co/0f0sXgw/k2-3989ba43-f726-4c42-b90e-fa1a868247cc-v1.webp">
+                            <span>Flash Deals</span>
+                        </a>
+                    </div>
+			 
+                    <div class="category">
+			<a href="flash-deals.html" class="plain-link">
+                        <img src="https://i.ibb.co/Fzr5zBX/k2-1039468b-90d4-4cef-a1a0-e2ecbe71d548-v1.webp">
+                        <span>Dyson</span>
+			</a>
+                    </div>
+                    <div class="category">
+			<a href="flash-deals.html" class="plain-link">
+                        <img src="https://i.ibb.co/4j1hz1P/k2-341dbb65-73e5-4ebb-8712-5e2608735031-v1.webp">
+                        <span>Back to school</span>
+			</a>
+                    </div>
+                    <div class="category">
+			<a href="flash-deals.html" class="plain-link">
+                        <img src="https://i.ibb.co/zGNnkbt/k2-a50ccb7a-33eb-42f9-8f53-78468f0179ae-v1.webp">
+                        <span>Back to college</span>
+			</a>
+                    </div>
+                    <div class="category">
+			<a href="flash-deals.html" class="plain-link">
+                        <img src="https://i.ibb.co/yY6bvgW/k2-35fb2b0a-f5ca-458b-9fcc-6950fd422d99-v1.webp">
+                        <span>Patio & garden</span>
+			</a>
+                    </div>
+                    <div class="category">
+			<a href="flash-deals.html" class="plain-link">
+                        <img src="https://i.ibb.co/8Md2Qd5/k2-5eb5fe6b-b7e0-46c9-b160-489cfb143356-v1.webp">
+                        <span>Tech</span>
+			</a>
+                    </div>
+                    <div class="category">
+			<a href="flash-deals.html" class="plain-link">
+                        <img src="https://i.ibb.co/7zF3Pzp/k2-54569dcb-13d2-4b4b-954c-20480465a96c-v1.webp">
+                        <span>Home</span>
+			</a>
+                    </div>
+                    <div class="category">
+			<a href="flash-deals.html" class="plain-link">
+                        <img src="https://i.ibb.co/Xs3xkpK/k2-03862266-7abb-46d6-b651-24c3d2963d85-v1.webp">
+                        <span>Food & beverages</span>
+			</a>
+                    </div>
+		     <div class="category">
+			<a href="flash-deals.html" class="plain-link">
+                        <img src="https://i.ibb.co/sgkhqsS/k2-8995e552-eb82-4b4c-8df1-8f24b880a096-v1.webp">
+                        <span>Coffee & Tea</span>
+			</a>
+                    </div>
+
+
+
+                    <!-- Add more categories as needed -->
+                </div>
+            </div>
+        </section>
+
+        <div class="custom-body">
+            <div class="custom-container">
+                <div class="custom-sidebar">
+                    <h2>Categories</h2>
+                    <ul>
+                        <li>Fresh Food</li>
+                        <li>Pantry & Snacks</li>
+                        <li>Frozen</li>
+                        <li>Beverages</li>
+                        <li>Alcohol</li>
+                        <li>Grab & Go</li>
+                    </ul>
+                </div>
+                <div class="custom-main-content">
+                    <div class="custom-shop-section">
+                        <h2>Shop groceries</h2>
+
+
+                        <div class="custom-category-row">
+                            
+
+
+<!-- Updated Category Links -->
+<div class="custom-category-item">
+    <a href="#" class="plain-link" data-category="Grocery">
+        <img src="https://i.ibb.co/ydnLCCq/k2-bc42d710-3d78-4c96-975d-657dd777f472-v1-1-1.png" alt="Fresh Produce">
+        <p>Grocery</p>
+    </a>
+</div>
+
+
+
+<!-- Updated Category Links -->
+<div class="custom-category-item">
+    <a href="#" class="plain-link" data-category="Fruits & Vegetables">
+        <img src="https://i.ibb.co/GFycmQC/k2-bc42d710-3d78-4c96-975d-657dd777f472-v1.webp" alt="Fruits & Vegetables">
+        <p>Fruits & Vegetables</p>
+    </a>
+</div>
+
+
+                    <div class="custom-category-item">
+			<a href="#" class="plain-link" data-category="Snacks">
+                        <img src="https://i.ibb.co/rmhR7cZ/k2-41a37f68-3e92-4993-89f9-37910a7c8700-v1.webp" alt="Snacks">
+                        <p>Snacks</p>
+			</a>
+                    </div>
+
+
+
+                    <div class="custom-category-item">
+			<a href="#" class="plain-link" data-category="Pantry Supplies">
+                        <img src="https://i.ibb.co/LJyMMGV/k2-d788ecd6-fc89-45b2-bca9-a6ef2f4802ed-v1.webp" alt="Pantry Supplies">
+                        <p>Pantry Supplies</p>
+			</a>
+                    </div>
+                    <div class="custom-category-item">
+			<a href="#" class="plain-link" data-category="Frozen foods">
+                        <img src="https://i.ibb.co/NnPVSBh/k2-d2ba0793-6a81-404c-a906-d850cfea3aa5-v1.webp" alt="Frozen foods">
+                        <p>Frozen foods</p>
+			</a>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="custom-shop-section">
+                <h2>Shop essentials</h2>
+                <div class="custom-category-row">
+			
+                    <div class="custom-category-item">
+			<a href="#" class="plain-link" data-category="Household essentials">
+                        <img src="https://i.ibb.co/QjKXRQt/k2-93769a1b-ddeb-41ac-b6b2-bb4b89a0c177-v1.webp" alt="Household essentials">
+                        <p>Household essentials</p>
+			</a>
+                    </div>
+
+                    <div class="custom-category-item">
+			<a href="#" class="plain-link" data-category="Pet supplies">
+                        <img src="https://i.ibb.co/PZmHcwp/k2-97d32aee-b168-4fb2-810a-e5bf52dc1e46-v1.webp" alt="Pet supplies">
+                        <p>Pet supplies</p>
+			</a>
+                    </div>
+                    <div class="custom-category-item">
+			<a href="#" class="plain-link" data-category="Beauty">
+                        <img src="https://i.ibb.co/KVMXmsr/k2-d88edd41-31ff-4711-ada0-83b0d852f945-v1.webp" alt="Beauty">
+                        <p>Beauty</p>
+			</a>
+                    </div>
+                    <div class="custom-category-item">
+			<a href="#" class="plain-link" data-category="Baby">
+                        <img src="https://i.ibb.co/vvzBBTD/k2-0ad92334-0fc5-46e6-94b9-ce2334ef680a-v1.webp" alt="Baby">
+                        <p>Baby</p>
+			</a>
+                    </div>
+				
+                            <!-- Add more categories as needed -->
+                        </div>
+                    </div>
+               
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="product-listing" id="product-listing">
+
+            <!-- Product cards will be injected here by JavaScript -->
+        </section>
+		
+<div class="pagination">
+    <button id="prev-page" class="pagination-btn" disabled>Previous</button>
+    <span id="page-numbers"></span>
+    <button id="next-page" class="pagination-btn">Next</button>
+</div>
+
+    </main>
+
+    <div id="notification" class="notification hide"></div>
+
+
+    <footer>
+        <div class="feedback">
+            <p>We'd love to hear what you think!</p>
+            <button>Give feedback</button>
+        </div>
+        <div class="footer-links">
+            <a href="#">All Departments</a>
+            <a href="#">Store Directory</a>
+            <a href="#">Careers</a>
+            <a href="#">Our Company</a>
+            <a href="#">Sell on Keep; Mart.com</a>
+            <a href="#">Help</a>
+            <a href="#">Product Recalls</a>
+            <a href="#">Accessibility</a>
+            <a href="#">Tax Exempt Program</a>
+            <a href="#">Get the Keep; Mart App</a>
+            <a href="#">Sign-up for Email</a>
+            <a href="#">Safety Data Sheet</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy & Security</a>
+            <a href="#">California Supply Chain Act</a>
+            <a href="#">Your Privacy Choices</a>
+            <a href="#">Notice at Collection</a>
+            <a href="#">NV Consumer Health Data Privacy Notice</a>
+            <a href="#">WA Consumer Health Data Privacy Notice</a>
+            <a href="#">Request My Personal Information</a>
+            <a href="#">Brand Shop Directory</a>
+            <a href="#">Pharmacy</a>
+            <a href="#">Keep; Mart Business</a>
+            <a href="#">#IYWYK</a>
+            <a href="#">Delete Account</a>
+        </div>
+        <div class="copyright">
+            <p>© 2024 Keep; Mart. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+ 
+    // Handle product listing and cart functionality
+    const productListing = document.getElementById("product-listing");
+    const cartIcon = document.getElementById("cart-icon");
+    const cartSummary = document.getElementById("cart-summary");
+    const closeBtn = document.getElementById("close-btn");
+    const proceedToOrderBtn = document.getElementById("proceed-to-order");
+    const notification = document.getElementById('notification');
+    const searchInput = document.getElementById("search-input");
+    const searchButton = document.getElementById("search-button");
+ 
+   const userNameElement = document.getElementById('user-name');
+            const loggedInUser = localStorage.getItem('loggedInUser');
+
+            if (loggedInUser) {
+                userNameElement.textContent = `Welcome, ${loggedInUser}!`; // Set the username
+            } else {
+                userNameElement.textContent = 'Welcome, Guest!'; // Default message if no user is logged in
+            }
+ 
+document.getElementById('logoutButton').addEventListener('click', function() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = 'signup 2.html'; // Redirect to the signup page
+        });
+
+
+
+
+
+
+
+
+
+
+
+if (!localStorage.getItem('loggedInUser')) {
+            window.location.href = 'LOGIN 2.html'; // Redirect to signup if not logged in
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Pagination variables
+    const productsPerPage = 8;
+    let currentPage = 1;
+    let totalPages = 1;
+    let currentPageIndex = 0;
+    const itemsVisible = 2;
+
+    // Retrieve cart and products from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || {};
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+
+    // Initialize products if not present in localStorage
+    if (products.length === 0) {
+        products = initializeProducts();
+        localStorage.setItem("products", JSON.stringify(products));
+    }
+
+    // Function to generate star rating HTML
+    function generateRatingStars(rating) {
+        let stars = '';
+        for (let i = 0; i < 5; i++) {
+            stars += i < rating ? '<span class="star">★</span>' : '<span class="empty-star">☆</span>';
+        }
+        return stars;
+    }
+
+    // Display products based on the category and search query
+    function displayProducts(category, searchQuery = "") {
+        productListing.innerHTML = "";
+
+        // Filter products based on category and search query
+        const filteredProducts = products.filter(product => 
+            (!category || product.category === category) &&
+            (!searchQuery || product.title.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+
+        // Calculate total pages
+        totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+        // Get products for the current page
+        const start = (currentPage - 1) * productsPerPage;
+        const end = start + productsPerPage;
+        const productsToShow = filteredProducts.slice(start, end);
+
+        productsToShow.forEach(product => {
+            const priceWithSign = `₱${parseFloat(product.price).toFixed(2)}`;
+            const oldPriceWithSign = product.oldPrice ? `₱${parseFloat(product.oldPrice).toFixed(2)}` : "";
+            const savings = product.oldPrice ? parseFloat(product.oldPrice) - parseFloat(product.price) : 0;
+            const savingsWithSign = `₱${savings.toFixed(2)}`;
+            const starRating = generateRatingStars(product.rating);
+            const outOfStockText = product.stock <= 0 ? "Out of Stock" : "";
+
+            const productCard = document.createElement("div");
+            productCard.className = "product-card";
+            productCard.innerHTML = `
+                <div class="product-image-container">
+                    <img src="${product.imgSrc}" alt="${product.title}">
+                    ${product.stock <= 0 ? `<span class="out-of-stock">${outOfStockText}</span>` : ''}
+                </div>
+                <div class="details">
+                    <div class="title">${product.title}</div>
+                    <div class="price">${priceWithSign}</div>
+                    <div class="old-price">${oldPriceWithSign}</div>
+                    <div class="savings">You save ${savingsWithSign}</div>
+                    <div class="description">${product.description}</div>
+                    <div class="rating">${starRating}</div>
+                    <div class="stock">In stock: ${product.stock}</div>
+                </div>
+                <div class="actions">
+                    <button class="add-to-cart" data-id="${product.id}" ${product.stock <= 0 ? 'disabled' : ''}>+ Add</button>
+                    <i class="fas fa-heart wishlist"></i>
+                </div>
+            `;
+            productListing.appendChild(productCard);
+        });
+
+        // Add event listeners for the "Add to Cart" buttons
+        document.querySelectorAll(".add-to-cart").forEach(button => {
+            button.addEventListener("click", addToCart);
+        });
+
+        // Update pagination controls
+        updatePaginationControls();
+    }
+
+    function updatePaginationControls() {
+        const prevButton = document.getElementById("prev-page");
+        const nextButton = document.getElementById("next-page");
+        const pageNumbers = document.getElementById("page-numbers");
+
+        // Clear existing page numbers
+        pageNumbers.innerHTML = "";
+
+        // Create page number buttons
+        for (let i = 1; i <= totalPages; i++) {
+            const pageNumber = document.createElement("span");
+            pageNumber.className = "page-number";
+            pageNumber.textContent = i;
+            if (i === currentPage) {
+                pageNumber.style.fontWeight = "bold";
+            }
+            pageNumber.addEventListener("click", () => {
+                currentPage = i;
+                displayProducts();
+            });
+            pageNumbers.appendChild(pageNumber);
+        }
+
+        // Update button states
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages;
+
+        // Add event listeners to buttons
+        prevButton.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayProducts();
+            }
+        });
+
+        nextButton.addEventListener("click", () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayProducts();
+            }
+        });
+    }
+
+    function addToCart(event) {
+        const productId = event.target.getAttribute("data-id");
+        const product = products.find(p => p.id === productId);
+
+        if (product) {
+            if (product.stock <= 0) {
+                showNotification(`"${product.title}" is out of stock.`);
+                return;
+            }
+
+            if (cart[productId]) {
+                if (cart[productId].quantity < product.stock) {
+                    cart[productId].quantity += 1;
+                } else {
+                    showNotification(`Cannot add more. Only ${product.stock} available in stock.`);
+                    return;
+                }
+            } else {
+                cart[productId] = {
+                    title: product.title,
+                    price: product.price,
+                    description: product.description,
+                    imgSrc: product.imgSrc,
+                    quantity: 1,
+                    stock: product.stock
+                };
+            }
+            updateCartDisplay();
+        } else {
+            showNotification(`Product with ID ${productId} not found.`);
+        }
+    }
+
+   function updateCartDisplay() {
+    const cartItemsElement = document.getElementById("cart-items");
+    const cartTotalElement = document.getElementById("cart-total");
+    const cartAmountElement = document.querySelector(".cart-amount");
+    const sliderContainer = document.querySelector(".slider-container");
+
+    let cartHTML = "";
+    let total = 0;
+
+    const cartEntries = Object.entries(cart);
+
+    if (cartEntries.length === 0) {
+        // Hide the slider and cart items if the cart is empty
+        sliderContainer.style.display = 'none';
+    } else {
+        // Show the slider and cart items if the cart is not empty
+        sliderContainer.style.display = 'flex';
+        
+        for (const [id, item] of cartEntries) {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            cartHTML += `
+                <div class="cart-item">
+                    <img src="${item.imgSrc}" alt="${item.title}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <p>${item.title || 'No description available'}</p>
+                        <p>₱${itemTotal.toFixed(2)}</p>
+                        <p>In stock: ${item.stock}</p>
+                        <div class="quantity-controls">
+                            <button class="quantity-decrease" data-id="${id}">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="quantity-increase" data-id="${id}">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        cartItemsElement.innerHTML = cartHTML;
+        cartTotalElement.textContent = `₱${total.toFixed(2)}`;
+        cartAmountElement.textContent = `₱${total.toFixed(2)}`;
+
+        document.querySelectorAll(".quantity-decrease").forEach(button => {
+            button.addEventListener("click", decreaseQuantity);
+        });
+        document.querySelectorAll(".quantity-increase").forEach(button => {
+            button.addEventListener("click", increaseQuantity);
+        });
+
+        updateSlider();
+    }
+}
+
+function updateSlider() {
+    const items = document.querySelectorAll(".cart-item");
+    const totalItems = items.length;
+
+    items.forEach((item, index) => {
+        item.style.display = (index >= currentPageIndex && index < currentPageIndex + itemsVisible) ? 'block' : 'none';
+    });
+}
+
+
+document.getElementById("slider-prev").addEventListener("click", () => {
+    if (currentPageIndex > 0) {
+        currentPageIndex -= itemsVisible;
+        updateSlider();
+    }
+});
+
+document.getElementById("slider-next").addEventListener("click", () => {
+    if (currentPageIndex + itemsVisible < document.querySelectorAll(".cart-item").length) {
+        currentPageIndex += itemsVisible;
+        updateSlider();
+    }
+});
+    function decreaseQuantity(event) {
+        const productId = event.target.getAttribute("data-id");
+        if (cart[productId] && cart[productId].quantity > 1) {
+            cart[productId].quantity -= 1;
+        } else {
+            delete cart[productId];
+        }
+        updateCartDisplay();
+    }
+
+    function increaseQuantity(event) {
+        const productId = event.target.getAttribute("data-id");
+        if (cart[productId]) {
+            const product = products.find(p => p.id === productId);
+            if (product && product.stock > cart[productId].quantity) {
+                cart[productId].quantity += 1;
+            } else {
+                showNotification(`Cannot increase quantity. Only ${product.stock} available in stock.`);
+            }
+        }
+        updateCartDisplay();
+    }
+
+    function showNotification(message) {
+        notification.textContent = message;
+        notification.classList.remove('hide');
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+            notification.classList.add('hide');
+        }, 3000);
+    }
+
+    function saveOrderDetails(orderDetails) {
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+        orders.push(orderDetails);
+        localStorage.setItem("orders", JSON.stringify(orders));
+
+        const purchaseLog = JSON.parse(localStorage.getItem("purchaseLog")) || [];
+        
+        for (const [productId, item] of Object.entries(orderDetails.cart)) {
+            const product = products.find(p => p.id === productId);
+
+            if (product) {
+                const remainingStock = product.stock - item.quantity;
+                const purchaseEntry = {
+                    title: item.title,
+                    quantity: item.quantity,
+                    remainingStock: remainingStock >= 0 ? remainingStock : 0,
+                    date: orderDetails.timestamp
+                };
+                purchaseLog.push(purchaseEntry);
+                product.stock = remainingStock;
+            } else {
+                const purchaseEntry = {
+                    title: item.title,
+                    quantity: item.quantity,
+                    remainingStock: "Unknown",
+                    date: orderDetails.timestamp
+                };
+                purchaseLog.push(purchaseEntry);
+            }
+        }
+
+        localStorage.setItem("products", JSON.stringify(products));
+        localStorage.setItem("purchaseLog", JSON.stringify(purchaseLog));
+    }
+
+    function handleCategoryChange(event) {
+        event.preventDefault();
+        const category = event.currentTarget.getAttribute("data-category");
+        displayProducts(category);
+    }
+
+    function searchProducts() {
+        const searchQuery = searchInput.value.trim();
+        displayProducts(null, searchQuery);
+    }
+
+    // Event listeners for category links
+    document.querySelectorAll(".custom-category-item a").forEach(link => {
+        link.addEventListener("click", handleCategoryChange);
+    });
+
+    cartIcon.addEventListener("click", (event) => {
+    event.preventDefault();
+    cartSummary.style.display = cartSummary.style.display === "none" ? "block" : "none";
+    updateCartDisplay(1); // Initialize with the first page
+});
+
+    closeBtn.addEventListener("click", () => {
+        cartSummary.style.display = "none";
+    });
+
+    proceedToOrderBtn.addEventListener("click", () => {
+        saveOrderDetails({
+            cart: { ...cart },
+            total: parseFloat(document.getElementById("cart-total").textContent.replace('₱', '')),
+            timestamp: new Date().toISOString()
+        });
+
+        localStorage.setItem("cartSummary", JSON.stringify(cart));
+        cart = {};
+        updateCartDisplay();
+        cartSummary.style.display = "none";
+        window.location.href = "Cartsummary.html";
+    });
+
+    searchButton.addEventListener("click", searchProducts);
+
+    // Ensure each product has a unique id
+    products = products.map((product, index) => ({ ...product, id: product.id || `product-${index}` }));
+    localStorage.setItem("products", JSON.stringify(products));
+
+    // Display products on page load
+    displayProducts(); // By default, display all products or adjust based on default category
+});
+
+</script>
+
+
+
+
+</body>
+</html>

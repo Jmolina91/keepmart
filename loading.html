@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loader Animation</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #ffffff; /* Background color */
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .loader-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bell-loader {
+            width: 200px; /* Increased width for a larger bell design */
+            height: 150px; /* Increased height for a larger bell design */
+            position: relative;
+        }
+
+        .bell-loader::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(farthest-side at bottom, #ffc10a 92%, #0000) top / 60px 30px,
+                radial-gradient(farthest-side at top left, #0000 92%, #ffc10a) bottom left / 30px 45px,
+                radial-gradient(farthest-side at top right, #0000 92%, #ffc10a) bottom right / 30px 45px,
+                linear-gradient(#ffc10a 0 0) bottom / 60px 50px;
+            background-repeat: no-repeat;
+            transform-origin: 50% -6px;
+            animation: l10-1 .7s infinite alternate linear;
+        }
+
+        .bell-loader::before {
+            content: "";
+            position: absolute;
+            inset: -15px calc(50% - 24px) -24px;
+            background:
+                radial-gradient(farthest-side, #ff9f04 90%, #0000) top / 30px 30px,
+                radial-gradient(farthest-side, #ff9f04 90%, #0000) bottom / 50px 50px;
+            background-repeat: no-repeat;
+            transform-origin: 50% 6px;
+            animation: l10-2 .7s infinite alternate linear;
+        }
+
+        @keyframes l10-1 {
+            0% { transform: rotate(-45deg) }
+            100% { transform: rotate(45deg) }
+        }
+
+        @keyframes l10-2 {
+            0% { transform: rotate(-30deg) }
+            100% { transform: rotate(30deg) }
+        }
+
+        .loading-text {
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 50px; /* Larger font size for "Please wait..." */
+            margin-bottom: 30px;
+            color: #333; /* Text color */
+        }
+
+        .loader {
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 30px; /* Font size for the loader text */
+            background: radial-gradient(circle closest-side, #000 94%, #0000) right / calc(200% - 1em) 100%;
+            animation: l24 1s infinite alternate linear;
+            width: fit-content;
+            color: #000; /* Text color */
+        }
+
+        .loader::before {
+            content: "We're Preparing your order now"; /* Full text */
+            line-height: 1em;
+            color: #0000; /* Invisible text color */
+            background: inherit;
+            background-image: radial-gradient(circle closest-side, #fff 94%, #000);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        @keyframes l24 {
+            100% { background-position: left; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="bell-loader"></div>
+        <div class="loading-text">Please wait...</div>
+        <div class="loader"></div> <!-- Loader for "We're Preparing your order now" -->
+    </div>
+
+    <script>
+        // Redirect to 'main2.html' after 30 seconds
+        setTimeout(function() {
+            window.location.href = 'main2.html';
+        }, 10000); // 10000 milliseconds = 10 seconds
+
+        // Prevent back navigation
+        window.history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function(event) {
+            // Redirect to error page when back button is clicked
+            window.location.href = 'error.html';
+        });
+
+        // Disable back navigation effectively
+        window.onbeforeunload = function() {
+            return "You cannot go back to the previous page."; // Custom message
+        };
+    </script>
+</body>
+</html>

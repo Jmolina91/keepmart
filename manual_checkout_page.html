@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management System</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #007BFF;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #FFD700;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: flex;
+            flex: 1;
+            margin-top: 20px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            gap: 30px;
+        }
+
+        /* Filters Section */
+        .filters {
+            position: sticky;
+            top: 20px;
+            width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            height: 30%;
+        }
+
+        .filters label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+            margin-right: 8px;
+        }
+
+        .filters select,
+        .filters input,
+        .filters button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .filters select,
+        .filters input {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .filters select:hover,
+        .filters input:hover {
+            border-color: #007BFF;
+        }
+
+        .filters button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .filters button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Order List Container */
+        .order-list-container {
+            flex: 1;
+            padding-left: 20px;
+            padding-right: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .order-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+        }
+
+        .order-list li {
+            background-color: #fff;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .order-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-list li .order-number {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Order Details Section */
+        .order-details {
+            flex: 2;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            margin-top: 20px;
+            height: calc(100vh - 500px);
+            overflow-y: auto;
+        }
+
+        .order-details h2 {
+            margin-top: 0;
+            font-size: 22px;
+            font-weight: 600;
+            color: #007BFF;
+        }
+
+        .order-items {
+            margin-top: 20px;
+        }
+
+        .order-items div {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-items p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .order-items .item-total {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Media Query for Responsiveness */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+
+            .filters {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .order-list-container {
+                width: 100%;
+            }
+
+            .order-details {
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Order Management System</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Orders</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <!-- Filters and Controls (Fixed Layout) -->
+        <div class="filters">
+            <label for="date-sort">Sort By Date: </label>
+            <select id="date-sort">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+
+            <label for="date-range">Select Date: </label>
+            <input type="date" id="date-range">
+
+            <button id="extract-btn">Extract Purchase Summary</button>
+            <button id="update-status-btn">Update Order Status</button>
+        </div>
+
+        <!-- List of Orders -->
+        <div class="order-list-container">
+            <h1>Order History</h1>
+            <ul id="order-list" class="order-list"></ul>
+        </div>
+
+        <!-- Order Details Section -->
+        <div id="order-details" class="order-details">
+            <h2>Order Details</h2>
+            <div id="order-items" class="order-items"></div>
+            <p><strong>Order Number:</strong> <span id="order-number"></span></p>
+            <p><strong>Status:</strong> <span id="order-status"></span></p>
+            <p><strong>Total Amount:</strong> ₱<span id="order-total"></span></p>
+            <p><strong>Order Date:</strong> <span id="order-date"></span></p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const orderListElement = document.getElementById("order-list");
+            const orderHistory = JSON.parse(localStorage.getItem("orderHistory")) || [];
+
+             // Function to display orders
+    function displayOrders(orders) {
+        orderListElement.innerHTML = "";
+        if (orders.length === 0) {
+            orderListElement.innerHTML = "<li>No orders found.</li>";
+        } else {
+            orders.forEach(order => {
+                const orderItem = document.createElement("li");
+                orderItem.textContent = `Order #${order.orderNumber}`;
+                orderItem.setAttribute("data-order-number", order.orderNumber);
+                orderListElement.appendChild(orderItem);
+            });
+        }
+    }
+
+   // Display orders on page load
+    displayOrders(orderHistory);
+
+
+ // Update order status functionality
+    document.getElementById("update-status-btn").addEventListener("click", function () {
+        const orderNumber = prompt("Enter the Order Number to update status:");
+        const order = orderHistory.find(order => order.orderNumber == orderNumber);
+
+        if (order) {
+            const newStatus = prompt("Enter the new status for this order (e.g., Canceled, Void, Return):");
+
+            if (newStatus) {
+                // Update the status of the selected order
+                order.status = newStatus;
+                // Save the updated order history to localStorage
+                localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
+                alert(`Order #${orderNumber} status has been updated to "${newStatus}".`);
+                
+                // Refresh the order list display
+                displayOrders(orderHistory);
+            } else {
+                alert("Status update canceled or invalid status.");
+            }
+        } else {
+            alert("Order not found.");
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            function sortOrders(orders, direction) {
+                return orders.sort((a, b) => {
+                    const dateA = new Date(a.timestamp);
+                    const dateB = new Date(b.timestamp);
+                    return direction === "asc" ? dateA - dateB : dateB - dateA;
+                });
+            }
+
+            function filterOrdersByDate(orders, selectedDate) {
+                return orders.filter(order => {
+                    const orderDate = new Date(order.timestamp);
+                    const formattedDate = orderDate.toISOString().split('T')[0];
+                    return formattedDate === selectedDate;
+                });
+            }
+
+            // Initial display
+            displayOrders(orderHistory);
+
+            document.getElementById("date-sort").addEventListener("change", function () {
+                const sortDirection = this.value;
+                const sortedOrders = sortOrders(orderHistory, sortDirection);
+                displayOrders(sortedOrders);
+            });
+
+            document.getElementById("extract-btn").addEventListener("click", function () {
+                const selectedDate = document.getElementById("date-range").value;
+                let filteredOrders = orderHistory;
+
+                if (selectedDate) {
+                    filteredOrders = filterOrdersByDate(orderHistory, selectedDate);
+                }
+
+                if (filteredOrders.length > 0) {
+                    generateExcel(filteredOrders);
+                } else {
+                    alert("No orders found for the selected date.");
+                }
+            });
+
+             function generateExcel(orders) {
+                const data = [];
+
+                orders.forEach(order => {
+                    const orderItems = order.items ? Object.values(order.items) : [];
+                    const orderDate = new Date(order.timestamp).toLocaleString();
+
+                    orderItems.forEach(item => {
+                        data.push({
+                            "Order Number": order.orderNumber,
+                            "Status": order.status,
+                            "Total Amount": order.totalAmount,
+                            "Order Date": orderDate,
+                            "Product Name": item.title,
+                            "Price": `₱${item.price}`,
+                            "Quantity": item.quantity,
+                            "Item Total": `₱${(parseFloat(item.price) * item.quantity).toFixed(2)}`
+                        });
+                    });
+
+                    if (orderItems.length === 0) {
+                        data.push({
+                            "Order Number": order.orderNumber,
+                            "Status": order.status,
+                            "Total Amount": order.totalAmount,
+                            "Order Date": orderDate,
+                            "Product Name": "N/A",
+                            "Price": "N/A",
+                            "Quantity": 0,
+                            "Item Total": "₱0.00"
+                        });
+                    }
+                });
+
+                const ws = XLSX.utils.json_to_sheet(data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Order Summary");
+                XLSX.writeFile(wb, "order_summary.xlsx");
+            }
+     
+            orderListElement.addEventListener("click", function (e) {
+                if (e.target.tagName.toLowerCase() === 'li') {
+                    const orderNumber = e.target.getAttribute("data-order-number");
+                    const selectedOrder = orderHistory.find(order => order.orderNumber === parseInt(orderNumber));
+
+                    if (selectedOrder) {
+                        displayOrderDetails(selectedOrder);
+                    } else {
+                        alert("Order not found.");
+                    }
+                }
+            });
+
+            function displayOrderDetails(order) {
+                const orderDetailsElement = document.getElementById("order-details");
+                const orderItemsElement = document.getElementById("order-items");
+                const orderNumberElement = document.getElementById("order-number");
+                const orderStatusElement = document.getElementById("order-status");
+                const orderTotalElement = document.getElementById("order-total");
+                const orderDateElement = document.getElementById("order-date");
+
+                orderItemsElement.innerHTML = "";
+                if (typeof order.items === 'object' && order.items !== null) {
+                    const itemsArray = Object.values(order.items);
+                    orderItemsElement.innerHTML = itemsArray.map(item => `
+                        <div>
+                            <p><strong>Product:</strong> ${item.title}</p>
+                            <p><strong>Price:</strong> ₱${item.price}</p>
+                            <p><strong>Quantity:</strong> ${item.quantity}</p>
+                            <p><strong>Total:</strong> ₱${(parseFloat(item.price) * item.quantity).toFixed(2)}</p>
+                        </div>
+                    `).join("");
+                } else {
+                    orderItemsElement.innerHTML = "<p>Error: The order items are not in the expected format.</p>";
+                }
+
+                orderNumberElement.textContent = order.orderNumber;
+                orderStatusElement.textContent = order.status;
+                orderTotalElement.textContent = order.totalAmount;
+                orderDateElement.textContent = new Date(order.timestamp).toLocaleString();
+
+                // Toggle fade-in or fade-out
+                if (orderDetailsElement.style.opacity === "1") {
+                    orderDetailsElement.style.opacity = "0";
+                    setTimeout(() => {
+                        orderDetailsElement.style.display = "none";
+                    }, 500); // Wait for fade-out transition
+                } else {
+                    orderDetailsElement.style.display = "block";
+                    setTimeout(() => {
+                        orderDetailsElement.style.opacity = "1";
+                    }, 10); // Small delay for transition to start
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Summary</title>
+    <style>
+        /* Add your CSS styling here */
+        /* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container */
+.cart-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.cart-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cart-header h2 {
+    font-size: 32px;
+    color: #333;
+    margin: 0;
+    font-weight: 700;
+}
+
+
+
+
+
+
+
+.loader {
+  width: 60px; /* Increased size */
+  height: 60px; /* Increased size */
+  border: 8px solid transparent; /* Adjusted border width */
+  border-top-color: #007BFF; /* Blue color */
+  border-radius: 50%;
+  position: fixed; /* Fixed positioning to cover the viewport */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for its own dimensions */
+  animation: spin 1s linear infinite; 
+  display: none; /* Initially hidden */
+  z-index: 9999; /* Ensure it's above all other content */
+}
+
+@keyframes spin {
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+
+
+
+
+/* Checkout Form Container */
+.checkout-form-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Checkout Form */
+.checkout-form {
+    flex: 2;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-form h2 {
+    font-size: 24px;
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.checkout-form label {
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.checkout-form input[type="text"], 
+.checkout-form input[type="email"],
+.checkout-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.checkout-form input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checkout-form .shipping-methods {
+    margin-bottom: 20px;
+}
+
+.checkout-form .shipping-methods div {
+    margin-bottom: 10px;
+}
+
+.checkout-form .shipping-methods input[type="radio"] {
+    margin-right: 10px;
+}
+
+.checkout-form button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.checkout-form button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Order Summary */
+.order-summary {
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary h2 {
+    font-size: 24px;
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.order-summary .cart-items {
+    margin-bottom: 20px;
+}
+
+.order-summary .cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-summary .cart-item-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.order-summary .cart-item-details {
+    flex: 1;
+}
+
+.order-summary .cart-item-details p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.order-summary .cart-item-price {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.order-summary .subtotal-section, 
+.order-summary .total-section {
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 20px;
+    border-top: 2px solid #007bff;
+    padding-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cart-container {
+        padding: 15px;
+    }
+    
+    .checkout-form-container {
+        flex-direction: column;
+    }
+    
+    .checkout-form,
+    .order-summary {
+        margin-bottom: 20px;
+    }
+
+    .checkout-form h2,
+    .order-summary h2 {
+        font-size: 20px;
+    }
+
+    .checkout-form input[type="text"],
+    .checkout-form input[type="email"],
+    .checkout-form select {
+        font-size: 14px;
+    }
+
+    .checkout-form button {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <div class="loader" id="loader" style="display: none;"></div>
+    <div class="cart-container">
+        <div class="cart-header">
+            <h2>Check Out Form</h2>
+        </div>
+
+        <div class="checkout-form-container">
+            <div class="checkout-form">
+                <form id="checkoutForm" autocomplete="on">
+                    <h2>Contact Information</h2>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
+                    <input type="checkbox" id="subscribe" name="subscribe">
+                    <label for="subscribe">Email me with news and offers</label>
+
+                    <h2>Delivery Method</h2>
+                    <div class="shipping-methods">
+                        <div>
+                            <input type="radio" id="ship-to-you" name="delivery-method" value="Ship To You" checked>
+                            <label for="ship-to-you">Ship To You</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="store-pickup" name="delivery-method" value="Store Pickup">
+                            <label for="store-pickup">Store Pickup (Free Shipping - Prepaid only)</label>
+                        </div>
+                    </div>
+
+                    <h2>Shipping Address</h2>
+                    <label for="country">Country</label>
+                    <select id="country" name="country" required autocomplete="country">
+                        <option value="Philippines">Philippines</option>
+                    </select>
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first-name" autocomplete="given-name" required maxlength="64" pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last-name" autocomplete="family-name" required maxlength="64" pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed">
+                    <label for="address">House or Unit Number / Street Name</label>
+                    <input type="text" id="address" name="address" autocomplete="address-line1" required maxlength="28" pattern="[A-Za-z0-9\s]+" title="Only letters, numbers, and spaces are allowed">
+                    <label for="province">Province</label>
+                    <input type="text" id="province" name="province" autocomplete="address-level1" required maxlength="28" pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed">
+                    <label for="city">Town or City</label>
+                    <input type="text" id="city" name="city" autocomplete="address-level2" required maxlength="28" pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed">
+                    <label for="barangay">Barangay</label>
+                    <input type="text" id="barangay" name="barangay" autocomplete="address-level2" required maxlength="28" pattern="[A-Za-z0-9\s]+" title="Only letters, numbers, and spaces are allowed">
+                    <label for="postal-code">Postal Code</label>
+                    <input type="text" id="postal-code" name="postal-code" autocomplete="postal-code" required maxlength="4" pattern="[0-9]{4}" title="4-digit postal code required">
+                    <label for="phone">Phone (e.g. 839171234567)</label>
+                    <input type="text" id="phone" name="phone" autocomplete="tel" required maxlength="11" pattern="[0-9]{11}" title="11-digit phone number required">
+                    <input type="checkbox" id="save-info" name="save-info">
+                    <label for="save-info">Save this information for next time</label>
+
+                    <button type="button" id="submitOrder">Submit Order</button>
+                </form>
+            </div>
+
+            <div class="order-summary" id="order-summary">
+                <h2>Order Summary</h2>
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be dynamically added here -->
+                </div>
+                <div class="total">    
+                    <p>Subtotal: <span id="subtotal">₱0.00</span></p>
+                    <p>Shipping: <span id="shipping-cost">Calculated at next step</span></p>
+                    <p>Total: <span id="total">₱0.00</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+    (function(){
+        emailjs.init("hAeZY8unnEI1Z-55p"); // Replace with your EmailJS user ID
+    })();
+
+    document.addEventListener('DOMContentLoaded', function() {
+        function sendOrderEmail(orderDetails) {
+            const templateParams = {
+                user_email: document.getElementById('email').value,
+                firstName: document.getElementById('first-name').value,
+                lastName: document.getElementById('last-name').value,
+                address: document.getElementById('address').value,
+                province: document.getElementById('province').value,
+                city: document.getElementById('city').value,
+                barangay: document.getElementById('barangay').value,
+                postalCode: document.getElementById('postal-code').value,
+                phone: document.getElementById('phone').value,
+                orderSummary: JSON.stringify(orderDetails.cartSummary),
+                total: orderDetails.orderSummary.total,
+                orderNumber: orderDetails.orderNumber
+            };
+
+            console.log('Sending email with parameters:', templateParams);
+
+            return emailjs.send('service_vtyj99g', 'template_7ghl1sw', templateParams);
+        }
+
+        function getNextOrderNumber() {
+            let lastOrderNumber = localStorage.getItem('lastOrderNumber') || 0;
+            lastOrderNumber = parseInt(lastOrderNumber, 10) + 1;
+            localStorage.setItem('lastOrderNumber', lastOrderNumber);
+            return lastOrderNumber;
+        }
+
+        function saveOrderToLocalStorage() {
+            const orderNumber = getNextOrderNumber();
+
+            const contactInfo = {
+                email: document.getElementById('email').value,
+                subscribe: document.getElementById('subscribe').checked,
+                deliveryMethod: document.querySelector('input[name="delivery-method"]:checked').value,
+                country: document.getElementById('country').value,
+                firstName: document.getElementById('first-name').value,
+                lastName: document.getElementById('last-name').value,
+                address: document.getElementById('address').value,
+                province: document.getElementById('province').value,
+                city: document.getElementById('city').value,
+                barangay: document.getElementById('barangay').value,
+                postalCode: document.getElementById('postal-code').value,
+                phone: document.getElementById('phone').value,
+                saveInfo: document.getElementById('save-info').checked
+            };
+
+            const cartSummary = JSON.parse(localStorage.getItem('cartSummary')) || {};
+            const orderSummary = {
+                subtotal: document.getElementById('subtotal').textContent,
+                total: document.getElementById('total').textContent
+            };
+
+            const order = {
+                orderNumber,
+                contactInfo,
+                cartSummary,
+                orderSummary,
+                dateTime: new Date().toISOString()
+            };
+
+            let orders = JSON.parse(localStorage.getItem('ORDERS')) || [];
+            orders.push(order);
+            localStorage.setItem('ORDERS', JSON.stringify(orders));
+
+            return order; // Return the order to send via email
+        }
+
+        function validateForm() {
+            const fields = [
+                'email', 'first-name', 'last-name', 
+                'address', 'province', 'city', 
+                'barangay', 'postal-code', 'phone'
+            ];
+
+            for (const field of fields) {
+                if (!document.getElementById(field).value) {
+                    alert(`Please fill in the ${field.replace('-', ' ')} field.`);
+                    return false;
+                }
+            }
+            return true; // All validations passed
+        }
+
+
+
+
+
+ // Prevent back navigation
+        window.history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function(event) {
+            // Redirect to error page when back button is clicked
+            window.location.href = 'error.html';
+        });
+
+        // Disable back navigation effectively
+        window.onbeforeunload = function() {
+            return "You cannot go back to the previous page."; // Custom message
+        };
+
+
+
+
+
+
+
+document.getElementById('submitOrder').addEventListener('click', function() {
+    // Check if the cart is empty
+    const cartSummary = JSON.parse(localStorage.getItem('cartSummary')) || {};
+    if (Object.keys(cartSummary).length === 0) {
+        alert('Your cart is empty. Please add items to the cart to proceed.');
+        window.location.href = 'main2.html'; // Redirect to main2.html
+        return; // Exit the function
+    }
+
+    // Proceed only if the form is valid
+    if (validateForm()) {
+        this.disabled = true; // Disable button
+        
+        // Show the loader
+        document.getElementById('loader').style.display = 'block'; 
+
+        const order = saveOrderToLocalStorage();
+        
+        sendOrderEmail(order).then((response) => {
+            console.log('SUCCESS!', response.status, response.text);
+            alert('Order submitted successfully!');
+            
+            // Set the cart to an empty object in local storage
+            localStorage.setItem('cartSummary', JSON.stringify({}));
+
+            setTimeout(() => {
+                window.location.href = 'loading.html'; // Redirect after 5 seconds
+            }, 5000);
+        }).catch((error) => {
+            console.error('FAILED...', error);
+            alert('Failed to send the order. Please try again.');
+            this.disabled = false; // Re-enable button on error
+            document.getElementById('loader').style.display = 'none'; // Hide loader on error
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function displayCartItems() {
+            console.log('displayCartItems function called');
+            const cartSummary = JSON.parse(localStorage.getItem('cartSummary')) || {};
+            const cartItemsElement = document.getElementById('cart-items');
+            let subtotal = 0;
+
+            cartItemsElement.innerHTML = ''; // Clear existing items
+
+            for (const [id, item] of Object.entries(cartSummary)) {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+
+                const cartItemDiv = document.createElement('div');
+                cartItemDiv.classList.add('cart-item');
+
+                const img = document.createElement('img');
+                img.src = item.imgSrc || 'default-image.jpg'; // Add a default image if not provided
+                img.alt = 'Product Image';
+                img.classList.add('cart-item-image');
+
+                const cartItemDetailsDiv = document.createElement('div');
+                cartItemDetailsDiv.classList.add('cart-item-details');
+
+                const nameP = document.createElement('p');
+                nameP.textContent = item.title;
+
+                const descriptionP = document.createElement('p');
+                descriptionP.textContent = item.description || 'No description available';
+
+                const priceP = document.createElement('p');
+                priceP.textContent = `Price: ₱${item.price}`;
+
+                const quantityP = document.createElement('p');
+                quantityP.textContent = `Quantity: ${item.quantity}`;
+
+                const itemTotalP = document.createElement('p');
+                itemTotalP.textContent = `Total: ₱${itemTotal.toFixed(2)}`;
+
+                cartItemDetailsDiv.appendChild(nameP);
+                cartItemDetailsDiv.appendChild(descriptionP);
+                cartItemDetailsDiv.appendChild(priceP);
+                cartItemDetailsDiv.appendChild(quantityP);
+                cartItemDetailsDiv.appendChild(itemTotalP);
+
+                cartItemDiv.appendChild(img);
+                cartItemDiv.appendChild(cartItemDetailsDiv);
+
+                cartItemsElement.appendChild(cartItemDiv);
+            }
+
+            document.getElementById('subtotal').textContent = `₱${subtotal.toFixed(2)}`;
+            document.getElementById('total').textContent = `₱${subtotal.toFixed(2)}`;
+        }
+
+        displayCartItems();
+    });
+</script>
+
+</body>
+
+
+</html>
