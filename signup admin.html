@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin User Management</title>
+    <style>
+        body {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #8ecae6;
+            margin: 0;
+        }
+        header {
+            background-color: #023047;
+            color: #ffb703;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer {
+            background-color: #023047;
+            color: #ffb703;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .container { 
+            flex: 1;
+            display: flex;
+            padding: 20px; 
+        }
+        .sidebar {
+            background-color: #023047;
+            color: #ffb703;
+            padding: 20px;
+            border-radius: 8px;
+            margin-right: 20px;
+            width: 200px;
+        }
+        .sidebar h3 {
+            cursor: pointer;
+        }
+        .dropdown {
+            display: none;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .dropdown a {
+            display: block;
+            color: #023047;
+            text-decoration: none;
+            padding: 5px 0;
+        }
+        .dropdown a:hover {
+            background-color: #ffb703;
+            color: #fff;
+        }
+        .main-content {
+            background-color: #023047;
+            padding: 20px;
+            border-radius: 8px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
+            flex: 1;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+        }
+        th, td { 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            text-align: left; 
+            color: #fff;
+        }
+        button { 
+            background-color: #ffb703; 
+            color: #023047; 
+            border: none; 
+            cursor: pointer; 
+            padding: 8px 12px; 
+            border-radius: 5px; 
+            transition: background-color 0.3s ease;
+        }
+        button:hover { 
+            background-color: #fb8500; 
+        }
+        .approved-section { 
+            display: none; 
+            overflow: hidden; 
+            transition: max-height 0.3s ease; 
+        }
+        .approved-toggle { 
+            margin: 10px 0; 
+        }
+        h2 { 
+            color: #ffb703; 
+        }
+        .no-requests {
+            color: #ffb703; 
+            text-align: center; 
+            margin-top: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span>Welcome, <span id="username">Admin</span></span>
+        <button id="logoutButton">Logout</button>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3 onclick="toggleDropdown()">Admin Functions</h3>
+            <div class="dropdown" id="adminDropdown">
+                <a href="signup admin.html">Manage Users</a>
+                <a href="#">View Reports</a>
+                <a href="upload 1.html">Upload Products</a>
+                <a href="orders2.html">Admin Page</a>
+	        <a href="main2.html">Main Store</a>
+            </div>
+        </div>
+
+        <div class="main-content"> 
+            <h2>Pending Sign-Up Requests</h2>
+            <table id="pendingUserTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="no-requests" id="noRequests">Currently no pending Sign-in Account request!</div>
+
+            <div class="approved-toggle">
+                <button id="toggleApproved">Show Approved Users</button>
+            </div>
+            
+            <div class="approved-section" id="approvedUserSection">
+                <h2>Approved Users</h2>
+                <table id="approvedUserTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="report-section" id="reportSection" style="display: none;">
+                <h2>Approved Accounts Report</h2>
+                <table id="approvedReportTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Approval Date</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Admin Dashboard. All Rights Reserved.
+    </footer>
+
+    <script>
+        document.getElementById('username').textContent = localStorage.getItem('loggedInUser') || 'Admin';
+
+        if (!localStorage.getItem('loggedInUser')) {
+            window.location.href = 'LOGIN 2.html';
+        }
+
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = 'signup 2.html';
+        });
+
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const pendingUsers = users.filter(user => !user.approved);
+            const approvedUsers = users.filter(user => user.approved);
+            const pendingTableBody = document.getElementById('pendingUserTable').getElementsByTagName('tbody')[0];
+            const approvedTableBody = document.getElementById('approvedUserTable').getElementsByTagName('tbody')[0];
+            const noRequestsNote = document.getElementById('noRequests');
+
+            pendingTableBody.innerHTML = '';
+            noRequestsNote.style.display = 'none';
+
+            if (pendingUsers.length === 0) {
+                noRequestsNote.style.display = 'block';
+            } else {
+                pendingUsers.forEach(user => {
+                    const row = pendingTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.role}</td>
+                        <td>
+                            <button onclick="approveUser('${user.email}')">Approve</button>
+                            <button onclick="denyUser('${user.email}')">Deny</button>
+                        </td>
+                    `;
+                });
+            }
+
+            approvedUsers.forEach(user => {
+                const row = approvedTableBody.insertRow();
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role}</td>
+                    <td>
+                        <button onclick="deleteUser('${user.email}')">Delete</button>
+                    </td>
+                `;
+            });
+        }
+
+        function approveUser(email) {
+            updateUserApproval(email, true);
+        }
+
+        function denyUser(email) {
+            updateUserApproval(email, false);
+        }
+
+        function deleteUser(email) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+                users = users.filter(user => user.email !== email);
+                localStorage.setItem('users', JSON.stringify(users));
+                location.reload();
+            }
+        }
+
+        function updateUserApproval(email, approved) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users = users.map(user => 
+                user.email === email ? { ...user, approved, approvalDate: approved ? new Date().toISOString() : null } : user
+            );
+            localStorage.setItem('users', JSON.stringify(users));
+            location.reload();
+        }
+
+        document.getElementById('toggleApproved').addEventListener('click', function() {
+            const approvedSection = document.getElementById('approvedUserSection');
+            if (approvedSection.style.display === "none" || approvedSection.style.display === "") {
+                approvedSection.style.display = "block";
+                this.innerText = "Hide Approved Users";
+            } else {
+                approvedSection.style.display = "none";
+                this.innerText = "Show Approved Users";
+            }
+        });
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('adminDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        document.querySelectorAll('.dropdown a')[1].addEventListener('click', function(event) {
+            event.preventDefault();
+            toggleReportSection();
+        });
+
+        function toggleReportSection() {
+            const reportSection = document.getElementById('reportSection');
+            if (reportSection.style.display === "none" || reportSection.style.display === "") {
+                reportSection.style.display = "block";
+                loadApprovedReports();
+            } else {
+                reportSection.style.display = "none";
+            }
+        }
+
+        function loadApprovedReports() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const approvedReports = users.filter(user => user.approved && user.approvalDate);
+            const approvedReportTableBody = document.getElementById('approvedReportTable').getElementsByTagName('tbody')[0];
+
+            approvedReportTableBody.innerHTML = '';
+
+            approvedReports.forEach(user => {
+                const row = approvedReportTableBody.insertRow();
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${new Date(user.approvalDate).toLocaleDateString()}</td>
+                `;
+            });
+        }
+
+        loadUsers();
+    </script>
+</body>
+</html>
