@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet" />
+    <style>
+        /* Resetting default styling and setting font-family */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            padding: 0 10px;
+            display: flex;
+            background: #8ecae6; /* Background Color */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Login form styling */
+        .login_form {
+            width: 100%;
+            max-width: 435px;
+            background: #ffffff; /* White background for the form */
+            border-radius: 6px;
+            padding: 41px 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .login_form h3 {
+            font-size: 20px;
+            text-align: center;
+            color: #023047; /* Dark header color */
+        }
+
+        /* Google & Apple button styling */
+        .login_form .login_option {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .login_form .login_option .option {
+            width: calc(100% / 2 - 12px);
+        }
+
+        .login_form .login_option .option a {
+            height: 56px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            background: #F8F8FB; /* Light background */
+            border: 1px solid #DADAF2;
+            border-radius: 5px;
+            margin: 34px 0 24px 0;
+            text-decoration: none;
+            color: #171645; /* Dark text color */
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        .login_form .login_option .option a:hover {
+            background: #ededf5; /* Light hover background */
+            border-color: #219ebc; /* Hover border color */
+        }
+
+        .login_form .login_option .option a img {
+            max-width: 25px;
+        }
+
+        .login_form p {
+            text-align: center;
+            font-weight: 500;
+            color: #023047; /* Dark text color */
+        }
+
+        .login_form .separator {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        /* Login option separator styling */
+        .login_form .separator span {
+            background: #ffffff; /* White background for separator */
+            z-index: 1;
+            padding: 0 10px;
+            position: relative;
+        }
+
+        .login_form .separator::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 0;
+            height: 1px;
+            background: #C2C2C2; /* Light gray separator */
+            display: block;
+        }
+
+        form .input_box label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #023047; /* Dark label color */
+        }
+
+        /* Input field styling */
+        form .input_box input {
+            width: 100%;
+            height: 57px;
+            border: 1px solid #DADAF2;
+            border-radius: 5px;
+            outline: none;
+            background: #F8F8FB;
+            font-size: 17px;
+            padding: 0 20px;
+            margin-bottom: 25px;
+            transition: 0.2s ease;
+        }
+
+        form .input_box input:focus {
+            border-color: #219ebc; /* Focus border color */
+        }
+
+        form .input_box .password_title {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        form .input_box {
+            position: relative;
+        }
+
+        a {
+            text-decoration: none;
+            color: #219ebc; /* Link color */
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Login button styling */
+        form button {
+            width: 100%;
+            height: 56px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            background: #219ebc; /* Button background color */
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-bottom: 28px;
+            transition: 0.3s ease;
+        }
+
+        form button:hover {
+            background: #fb8500; /* Button hover color */
+        }
+    </style>
+</head>
+<body>
+    <div class="login_form">
+        <form id="loginForm">
+            <h3>Log in with</h3>
+
+            <div class="login_option">
+                <div class="option">
+                    <a href="#">
+                        <img src="https://i.ibb.co/KGBCc79/pngwing-com-7.png" />
+                        <span>Google</span>
+                    </a>
+                </div>
+
+                <div class="option">
+                    <a href="#">
+                        <img src="https://i.ibb.co/4VJTkdC/pngwing-com-8.png" alt="Email" />
+                        <span>Email</span>
+                    </a>
+                </div>
+            </div>
+
+            <p class="separator">
+                <span>or</span>
+            </p>
+
+            <div class="input_box">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter email address" required />
+            </div>
+
+            <div class="input_box">
+                <div class="password_title">
+                    <label for="password">Password</label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <input type="password" id="password" placeholder="Enter your password" required />
+            </div>
+
+            <button type="submit">Log In</button>
+
+            <p class="sign_up">Don't have an account? <a href="signup 2.html">Sign up</a></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(u => u.email === email && u.password === password && u.approved === true);
+
+  // Prevent back and forward navigation
+        history.pushState(null, document.title, location.href);
+
+        window.addEventListener('popstate', function() {
+            history.pushState(null, document.title, location.href);
+        });
+
+        // Warn user on unload
+        window.onbeforeunload = function() {
+            return "Are you sure you want to leave this page?";
+        };
+
+
+
+    if (user) {
+        localStorage.setItem('loggedInUser', user.name); // Store the username
+        switch (user.role) {
+            case 'Employee':
+                window.location.href = 'main2.html';
+                break;
+            case 'Administrator':
+                window.location.href = 'orders.html';
+                break;
+            case 'Master':
+                window.location.href = 'signup admin.html';
+                break;
+            default:
+                alert('Invalid role!');
+        }
+    } else {
+        alert('Invalid email or password, or account not approved.');
+    }
+});
+
+    </script>
+</body>
+</html>
