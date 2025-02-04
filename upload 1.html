@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+ /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+}
+
+.logo {
+    width: 120px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.search-bar input {
+    padding: 10px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.search-bar button {
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #555;
+    border: none;
+    color: white;
+    margin-left: 10px;
+}
+
+.right-section a {
+    margin-left: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.cart-amount {
+    font-weight: bold;
+}
+
+.savings-nav {
+    background-color: #555;
+    color: white;
+    padding: 10px 0;
+}
+
+.savings-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.savings-nav ul li {
+    margin: 0 15px;
+}
+
+.savings-nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.savings-banner {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.savings-banner .banner-text h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.custom-body {
+    margin: 20px;
+}
+
+.custom-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-sidebar {
+    width: 200%; /* Adjust as needed */
+    padding: 10px;
+    background-color: #f4f4f4;
+    background-image: url('https://i.ibb.co/grWgmxq/image-removebg-preview.png');
+    background-size: 200px 200px; /* Adjust the size of the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: right top; /* Position the image (adjust as needed) */
+}
+
+.custom-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.custom-sidebar ul li {
+    margin: 10px 0;
+}
+
+.custom-sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.custom-main-content {
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+}
+
+.custom-shop-section {
+    margin-bottom: 20px;
+}
+
+.custom-shop-section h2 {
+    margin-bottom: 15px;
+}
+
+.custom-category-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.custom-category-item {
+    width: 30%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.custom-category-item img {
+    width: 100%;
+    height: auto;
+}
+
+/* Ensure the parent container of .product-upload is a flex container */
+.container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Full viewport height to center vertically */
+    padding: 20px; /* Optional padding for some space around the container */
+}
+
+/* Styles for the product upload form */
+.product-upload {
+    margin-top: 20px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    resize: both; /* Enable resizing */
+    overflow: auto; /* Enable scroll if needed */
+}
+
+/* Header styles */
+.product-upload h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
+
+/* Form styles */
+.product-upload form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Label styles */
+.product-upload form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* Input, textarea, and select styles */
+.product-upload form input,
+.product-upload form textarea,
+.product-upload form select {
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Focus styles for input, textarea, and select */
+.product-upload form input:focus,
+.product-upload form textarea:focus,
+.product-upload form select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+    outline: none;
+}
+
+/* Textarea specific styles */
+.product-upload form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Button styles */
+.product-upload form button {
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Button hover effect */
+.product-upload form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Button active effect */
+.product-upload form button:active {
+    background-color: #004085;
+    transform: translateY(0);
+}
+
+/* Button disabled effect */
+.product-upload form button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+
+/* Table styles */
+.product-table,
+.purchase-log,
+.edit-date-table {
+    margin-top: 20px;
+}
+
+.product-table table,
+.purchase-log table,
+.edit-date-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table th,
+.purchase-log th,
+.edit-date-table th,
+.product-table td,
+.purchase-log td,
+.edit-date-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.product-table th,
+.purchase-log th,
+.edit-date-table th {
+    background-color: #f4f4f4;
+}
+
+.product-table img {
+    width: 80px;
+    height: auto;
+}
+
+.purchase-log table,
+.edit-date-table table {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.purchase-log th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.purchase-log tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.purchase-log tr:hover {
+    background-color: #ddd;
+}
+
+#extract-summary-btn {
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+/* Media Queries for larger screens */
+@media (min-width: 768px) {
+    .custom-container {
+        flex-direction: row;
+    }
+
+    .custom-sidebar {
+        width: 20%;
+    }
+
+    .custom-main-content {
+        width: 80%;
+    }
+
+    .custom-category-item {
+        width: 30%;
+    }
+}
+
+/* Base button styles */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px; /* Same padding for all buttons */
+    font-size: 14px; /* Same font size for all buttons */
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 80px; /* Minimum width to ensure consistency */
+    text-align: center; /* Center text */
+}
+
+.button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+/* Edit Button Styles */
+.edit-btn {
+    background-color: #28a745; /* Green background */
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.edit-btn:active {
+    background-color: #1e7e34; /* Even darker green on click */
+}
+
+.edit-btn:disabled {
+    background-color: #6c757d; /* Gray for disabled state */
+    cursor: not-allowed;
+}
+
+/* Delete Button Styles */
+.delete-btn {
+    background-color: #dc3545; /* Red background */
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+.delete-btn:active {
+    background-color: #bd2130; /* Even darker red on click */
+}
+
+.delete-btn:disabled {
+    background-color: #6c757d; /* Gray for disabled state */
+    cursor: not-allowed;
+}
+
+#upload-file-btn {
+    background-color: #007bff; /* Royal blue base color */
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 30px; /* Rounded edges for a modern look */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition effects */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    letter-spacing: 1px; /* Slight letter spacing */
+}
+
+#upload-file-btn:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+#upload-file-btn:active {
+    background-color: #004080; /* Even darker blue on click */
+    transform: scale(0.98); /* Slight press-down effect */
+}
+
+#upload-file-btn:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.7); /* Focus shadow for accessibility */
+}
+
+.back-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button:active {
+            transform: translateY(2px);
+        }
+
+.custom-category-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Increased min size for larger images */
+        gap: 50px; /* Space between items */
+        padding: 10px; /* Padding around the grid */
+    }
+    .custom-category-item {
+        text-align: center;
+    }
+    .custom-category-item img {
+        width: 400%; /* Make the image fill the item */
+        height: 200px; /* Increased height */
+        object-fit: cover; /* Ensures the image covers the area without distortion */
+    }
+
+.category-title {
+        font-size: 24px; /* Title size */
+        font-weight: bold; /* Bold text */
+        text-align: center; /* Center the title */
+        color: #333; /* Dark color for the title */
+        margin: 20px 0; /* Spacing above and below the title */
+        position: relative; /* Positioning for the underline effect */
+    }
+    .category-title::after {
+        content: ''; /* Creates a pseudo-element */
+        display: block; /* Makes it a block element */
+        width: 50%; /* Underline width */
+        height: 4px; /* Underline height */
+        background: #4CAF50; /* Color of the underline */
+        margin: 10px auto 0; /* Center it and add spacing */
+    }
+
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+	
+    <button id="backButton" class="back-button">
+        &#8592; Back
+    </button>
+         <img src="https://i.ibb.co/c3Kn5hS/keep-mart-high-resolution-logo-transparent-1-1.png" class="logo">
+       
+        <div class="right-section">
+            <a href="#">Account</a> 
+        </div>
+    </div>
+    <div class="savings-nav">
+        <ul>
+            <li><a href="#">Deals</a></li>
+            <li><a href="#">Clearance</a></li>
+            <li><a href="#">Weekly Ad</a></li>
+        </ul>
+    </div>
+    <div class="savings-banner">
+        <div class="banner-text">
+            <h1>MASTER ITEMS</h1>
+            <p>Find great deals and save on your favorite products</p>
+        </div>
+    </div>
+    <main>
+        <div class="custom-body">
+            <div class="custom-container">
+                <div class="custom-sidebar">
+                    <ul>
+                        <li><a href="#">Category 1</a></li>
+                        <li><a href="#">Category 2</a></li>
+                        <li><a href="#">Category 3</a></li>
+                    </ul>
+                </div>
+                <div class="custom-main-content">
+                    <div class="custom-shop-section">
+                        <h2>Shop by Category</h2>
+
+<div class="custom-category-row">
+    <div class="custom-category-item">
+        <img src="https://i.ibb.co/HzLb3Mq/alex-k-Bc-BZhzn5qo-unsplash.jpg" alt="Fruits & Vegetables">
+        <p class="category-title">Fruits & Vegetables</p>
+    </div>
+    <div class="custom-category-item">
+        <img src="https://i.ibb.co/Jcnz6xv/kenny-eliason-Svh-XD3k-PSTY-unsplash.jpg" alt="Grocery">
+        <p class="category-title">Grocery</p>
+    </div>
+    <div class="custom-category-item">
+        <img src="https://i.ibb.co/jG0zFPq/image.png" alt="Baby Supplies">
+        <p class="category-title">Baby Supplies</p>
+    </div>
+  <div class="custom-category-item">
+        <img src="https://i.ibb.co/HddfRgm/image.png" alt="Beer & Wines">
+        <p class="category-title">Beer & Wines</p>
+    </div>
+ <div class="custom-category-item">
+        <img src="https://i.ibb.co/rb6X390/image.png" alt="Bathroom Essentials">
+        <p class="category-title">Bathroom Essentials</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Add more items as needed -->
+</div>
+                    </div>
+
+	        <div class="container">
+                    <section class="product-upload">
+                        <h2>Upload New Product</h2>
+                        <form id="product-form">
+                            <label for="product-category">Category:</label>
+                            <select id="product-category" required>
+                                <option value="">Select Category</option>
+                                <option value="Grocery">Grocery</option>
+                                <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Snacks">Snacks</option>
+                                <option value="Pantry Supplies">Pantry Supplies</option>
+                                <option value="Frozen foods">Frozen foods</option>
+                                <option value="Household essentials">Household essentials</option>
+                                <option value="Pet supplies">Pet supplies</option>
+                                <option value="Beauty">Beauty</option>
+                                <option value="Baby">Baby</option>
+                            </select>
+                            <label for="product-img">Image URL:</label>
+                            <input type="text" id="product-img" required>
+                            <label for="product-title">Title:</label>
+                            <input type="text" id="product-title" required>
+                            <label for="product-price">Price:</label>
+                            <input type="number" id="product-price" step="0.01" required>
+                            <label for="product-old-price">Old Price:</label>
+                            <input type="number" id="product-old-price" step="0.01" required>
+                            <label for="product-stock">Stock:</label>
+                            <input type="number" id="product-stock" required>
+                            <label for="product-stockonshelf">Stock on Shelf:</label>
+                            <input type="number" id="product-stockonshelf" required>
+                            <label for="product-description">Description:</label>
+                            <textarea id="product-description" required></textarea>
+                            <label for="product-rating">Rating (1-5):</label>
+                            <input type="number" id="product-rating" min="1" max="5" required>
+                            <button type="submit" id="add-product-btn">Add Product</button>
+                            <button type="button" id="save-product-btn" style="display: none;">Save</button>
+		        
+			<input type="file" id="file-input" style="display:none;" />
+			<button id="upload-file-btn">Upload Excel File</button>
+                        </form>
+                    </section>			
+ 		    </div>
+
+                    <section class="product-table">
+                        <h2>Product Log</h2>
+                        <div class="table-container">
+                            <table id="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Category</th>
+                                        <th>Title</th>
+                                        <th>Price</th>
+                                        <th>Old Price</th>
+                                        <th>Stock</th>
+                                        <th>Stock on Shelf</th>
+                                        <th>Description</th>
+                                        <th>Rating</th>
+                                        <th>Date Added</th>
+					<th>Date Edited</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Product rows will be injected here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    
+                
+                    
+                    <section class="edit-date-table">
+                        <h2>Edit Date Log</h2>
+                        <div class="table-container">
+                            <table id="edit-date-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Last Edited</th>
+					<th>Details Before</th>
+					<th>Details After Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Edit date rows will be injected here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    
+                    <button id="extract-summary-btn">Extract Record Summary</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const productForm = document.getElementById("product-form");
+    const productTable = document.getElementById("product-table").getElementsByTagName('tbody')[0];
+    const editDateTable = document.getElementById("edit-date-table").getElementsByTagName('tbody')[0];
+    const addProductBtn = document.getElementById("add-product-btn");
+    const saveProductBtn = document.getElementById("save-product-btn");
+    const fileInput = document.getElementById("file-input");
+    const uploadFileBtn = document.getElementById("upload-file-btn");
+    let editIndex = null;
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        return new Date(dateString).toLocaleString(undefined, options);
+    }
+
+    function generateRatingStars(rating) {
+        let stars = '';
+        for (let i = 0; i < 5; i++) {
+            stars += i < rating ? '<span class="star">★</span>' : '<span class="empty-star">☆</span>';
+        }
+        return stars;
+    }
+
+    function updateTables() {
+        // Clear tables
+        productTable.innerHTML = "";
+        editDateTable.innerHTML = "";
+    
+        // Retrieve and display product data
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        products.forEach((product, index) => {
+            const row = productTable.insertRow();
+            row.innerHTML = `
+                <td><img src="${product.imgSrc}" alt="Product Image"></td>
+                <td>${product.category}</td>
+                <td>${product.title}</td>
+                <td>₱${parseFloat(product.price).toFixed(2)}</td>
+                <td>₱${parseFloat(product.oldPrice).toFixed(2)}</td>
+                <td>${product.stock}</td>
+                <td>${product.stockonshelf}</td>
+                <td>${product.description}</td>
+                <td class="rating-stars">${generateRatingStars(product.rating)}</td>
+                <td>${formatDate(product.dateAdded)}</td>
+                <td>${product.lastEdited ? formatDate(product.lastEdited) : 'Not Edited'}</td> <!-- Add Last Edited column -->
+                <td>
+                    <button class="button edit-btn" data-index="${index}">Edit</button>
+                    <button class="button delete-btn" data-index="${index}">Delete</button>
+                </td>
+            `;
+        });
+
+        // Update Edit Date Table (limit to last 5 records)
+        let editDateLogs = JSON.parse(localStorage.getItem("editDateLogs")) || [];
+        const recentEditLogs = editDateLogs.slice(-5);
+        recentEditLogs.forEach(log => {
+            const editRow = editDateTable.insertRow();
+            editRow.innerHTML = `
+                <td>${log.title}</td>
+                <td>${log.lastEdited ? formatDate(log.lastEdited) : 'Never'}</td>
+                <td>${log.beforeEdit}</td>
+                <td>${log.afterEdit}</td>
+            `;
+        });
+
+        // Add event listeners for delete and edit buttons
+        document.querySelectorAll(".delete-btn").forEach(button => {
+            button.addEventListener("click", (e) => {
+                const index = e.target.getAttribute("data-index");
+
+                // Show confirmation dialog
+                if (confirm("Record will be permanently removed. Are you sure?")) {
+                    // Proceed with deletion
+                    let products = JSON.parse(localStorage.getItem("products")) || [];
+                    products.splice(index, 1);
+                    localStorage.setItem("products", JSON.stringify(products));
+                    updateTables(); // Refresh tables after deletion
+                }
+            });
+        });
+
+
+
+
+
+document.getElementById('backButton').addEventListener('click', function() {
+            // Navigate back in history
+            window.history.back();
+        });
+
+
+
+
+
+
+        document.querySelectorAll(".edit-btn").forEach(button => {
+            button.addEventListener("click", (e) => {
+                const index = e.target.getAttribute("data-index");
+                let products = JSON.parse(localStorage.getItem("products")) || [];
+                const product = products[index];
+
+                document.getElementById("product-category").value = product.category;
+                document.getElementById("product-img").value = product.imgSrc;
+                document.getElementById("product-title").value = product.title;
+                document.getElementById("product-price").value = product.price;
+                document.getElementById("product-old-price").value = product.oldPrice;
+                document.getElementById("product-stock").value = product.stock;
+                document.getElementById("product-stockonshelf").value = product.stockonshelf;
+                document.getElementById("product-description").value = product.description;
+                document.getElementById("product-rating").value = product.rating;
+
+                editIndex = index;
+                addProductBtn.disabled = true;
+                saveProductBtn.style.display = "inline-block";
+            });
+        });
+    }
+
+    function logEditDetails(title, beforeEdit, afterEdit) {
+        let editDateLogs = JSON.parse(localStorage.getItem("editDateLogs")) || [];
+        const logEntry = {
+            title: title,
+            lastEdited: new Date().toLocaleString(),
+            beforeEdit: beforeEdit,
+            afterEdit: afterEdit
+        };
+        editDateLogs.push(logEntry);
+        localStorage.setItem("editDateLogs", JSON.stringify(editDateLogs));
+        updateTables(); // Refresh tables after logging edit details
+    }
+
+    productForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const price = parseFloat(document.getElementById("product-price").value).toFixed(2);
+        const oldPrice = parseFloat(document.getElementById("product-old-price").value).toFixed(2);
+        const stock = parseInt(document.getElementById("product-stock").value);
+        const stockonshelf = parseInt(document.getElementById("product-stockonshelf").value);
+        const dateAdded = new Date().toLocaleString();
+
+        const newProduct = {
+            category: document.getElementById("product-category").value,
+            imgSrc: document.getElementById("product-img").value,
+            title: document.getElementById("product-title").value,
+            price: price,
+            oldPrice: oldPrice,
+            stock: stock,
+            stockonshelf: stockonshelf,
+            description: document.getElementById("product-description").value,
+            rating: parseInt(document.getElementById("product-rating").value),
+            dateAdded: dateAdded,
+            lastEdited: '' // Initialize with an empty string
+        };
+
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        products.push(newProduct);
+        localStorage.setItem("products", JSON.stringify(products));
+
+        productForm.reset();
+        updateTables(); // Refresh tables after adding a new product
+    });
+
+    saveProductBtn.addEventListener("click", () => {
+        if (editIndex !== null) {
+            const price = parseFloat(document.getElementById("product-price").value).toFixed(2);
+            const oldPrice = parseFloat(document.getElementById("product-old-price").value).toFixed(2);
+            const lastEdited = new Date().toLocaleString(); // Update to current date and time
+            const stock = parseInt(document.getElementById("product-stock").value);
+            const stockonshelf = parseInt(document.getElementById("product-stockonshelf").value);
+
+            let products = JSON.parse(localStorage.getItem("products")) || [];
+            const originalProduct = products[editIndex];
+
+            const updatedProduct = {
+                category: document.getElementById("product-category").value,
+                imgSrc: document.getElementById("product-img").value,
+                title: document.getElementById("product-title").value,
+                price: price,
+                oldPrice: oldPrice,
+                stock: stock,
+                stockonshelf: stockonshelf,
+                description: document.getElementById("product-description").value,
+                rating: parseInt(document.getElementById("product-rating").value),
+                dateAdded: originalProduct.dateAdded, // Keep original dateAdded
+                lastEdited: lastEdited // Update lastEdited
+            };
+
+            // Prepare the before and after details
+            const beforeEdit = [];
+            const afterEdit = [];
+
+            if (originalProduct.price !== updatedProduct.price) {
+                beforeEdit.push(`Price: ₱${parseFloat(originalProduct.price).toFixed(2)}`);
+                afterEdit.push(`Price: ₱${parseFloat(updatedProduct.price).toFixed(2)}`);
+            }
+            if (originalProduct.oldPrice !== updatedProduct.oldPrice) {
+                beforeEdit.push(`Old Price: ₱${parseFloat(originalProduct.oldPrice).toFixed(2)}`);
+                afterEdit.push(`Old Price: ₱${parseFloat(updatedProduct.oldPrice).toFixed(2)}`);
+            }
+            if (originalProduct.stock !== updatedProduct.stock) {
+                beforeEdit.push(`Stock: ${originalProduct.stock}`);
+                afterEdit.push(`Stock: ${updatedProduct.stock}`);
+            }
+            if (originalProduct.stockonshelf !== updatedProduct.stockonshelf) {
+                beforeEdit.push(`Stock on Shelf: ${originalProduct.stockonshelf}`);
+                afterEdit.push(`Stock on Shelf: ${updatedProduct.stockonshelf}`);
+            }
+            if (originalProduct.description !== updatedProduct.description) {
+                beforeEdit.push(`Description: ${originalProduct.description}`);
+                afterEdit.push(`Description: ${updatedProduct.description}`);
+            }
+            if (originalProduct.rating !== updatedProduct.rating) {
+                beforeEdit.push(`Rating: ${originalProduct.rating}`);
+                afterEdit.push(`Rating: ${updatedProduct.rating}`);
+            }
+
+            // Prepare the log details correctly
+            const logBeforeEdit = beforeEdit.length > 0 ? beforeEdit.join(', ') : 'No changes';
+            const logAfterEdit = afterEdit.length > 0 ? afterEdit.join(', ') : 'No changes';
+
+            // Log the edit details
+            logEditDetails(updatedProduct.title, logBeforeEdit, logAfterEdit);
+
+            // Update the product and save to localStorage
+            products[editIndex] = updatedProduct;
+            localStorage.setItem("products", JSON.stringify(products));
+
+            // Reset the form and UI elements
+            productForm.reset();
+            addProductBtn.disabled = false;
+            saveProductBtn.style.display = "none";
+            editIndex = null;
+            updateTables(); // Refresh tables after saving the edited product
+        }
+    });
+
+    document.getElementById("extract-summary-btn").addEventListener("click", () => {
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        let editDateLogs = JSON.parse(localStorage.getItem("editDateLogs")) || [];
+        let purchaseLog = JSON.parse(localStorage.getItem("purchaseLog")) || [];
+
+        // Create a new workbook
+        const wb = XLSX.utils.book_new();
+
+        // Helper function to convert data to worksheet
+        const jsonToSheet = (data, columns) => {
+            return XLSX.utils.json_to_sheet(data, { header: columns });
+        };
+
+        // Product Log Sheet
+        const productColumns = ["Category", "Image", "Title", "Price", "Old Price", "Stock", "Stock on Shelf", "Description", "Rating", "Date Added"];
+        const productData = products.map(product => ({
+            Category: product.category,
+            Image: product.imgSrc,
+            Title: product.title,
+            Price: parseFloat(product.price).toFixed(2),
+            "Old Price": parseFloat(product.oldPrice).toFixed(2),
+            Stock: product.stock,
+            "Stock on Shelf": product.stockonshelf,
+            Description: product.description,
+            Rating: product.rating,
+            "Date Added": formatDate(product.dateAdded)
+        }));
+        const productSheet = jsonToSheet(productData, productColumns);
+        XLSX.utils.book_append_sheet(wb, productSheet, "Product Log");
+
+        // Edit Date Log Sheet
+        const editDateColumns = ["Title", "Last Edited", "Before Edit", "After Edit"];
+        const editDateData = editDateLogs.map(log => ({
+            Title: log.title,
+            "Last Edited": log.lastEdited ? formatDate(log.lastEdited) : 'Never',
+            "Before Edit": log.beforeEdit,
+            "After Edit": log.afterEdit
+        }));
+        const editDateSheet = jsonToSheet(editDateData, editDateColumns);
+        XLSX.utils.book_append_sheet(wb, editDateSheet, "Edit Date Log");
+
+        // Write the workbook and trigger download
+        XLSX.writeFile(wb, "product_summary.xlsx");
+    });
+
+    uploadFileBtn.addEventListener("click", () => {
+        fileInput.click(); // Trigger file input click
+    });
+
+    fileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file && file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const data = new Uint8Array(event.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+
+                // Process the "Product Log" sheet
+                const sheetName = "Product Log";
+                if (workbook.SheetNames.includes(sheetName)) {
+                    const sheet = workbook.Sheets[sheetName];
+                    const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+                    // Check if data is correctly formatted
+                    const requiredColumns = ["Category", "Image", "Title", "Price", "Old Price", "Stock", "Stock on Shelf", "Description", "Rating", "Date Added"];
+                    if (jsonData.length > 0 && Object.keys(jsonData[0]).every(key => requiredColumns.includes(key))) {
+                        // Retrieve existing products from localStorage
+                        let existingProducts = JSON.parse(localStorage.getItem("products")) || [];
+
+                        // Map and format new data, updating the 'dateAdded'
+                        const formattedData = jsonData.map(product => ({
+                            category: product["Category"],
+                            imgSrc: product["Image"],
+                            title: product["Title"],
+                            price: parseFloat(product["Price"]).toFixed(2),
+                            oldPrice: parseFloat(product["Old Price"]).toFixed(2),
+                            stock: parseInt(product["Stock"]),
+                            stockonshelf: parseInt(product["Stock on Shelf"]),
+                            description: product["Description"],
+                            rating: parseInt(product["Rating"]),
+                            dateAdded: new Date().toLocaleString(), // Update with current date/time
+                        }));
+
+                        // Merge new products with existing ones
+                        existingProducts = [...existingProducts, ...formattedData];
+
+                        // Save the updated product list to localStorage
+                        localStorage.setItem("products", JSON.stringify(existingProducts));
+
+                        updateTables(); // Refresh tables after upload
+                    } else {
+                        alert("The uploaded file does not match the required format.");
+                    }
+                } else {
+                    alert("The uploaded file does not contain a 'Product Log' sheet.");
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        } else {
+            alert("Please upload a valid Excel file.");
+        }
+    });
+
+    // Initial load of tables
+    updateTables();
+});
+
+</script>
+
+
+</body>
+
+</html>
