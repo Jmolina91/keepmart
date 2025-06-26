@@ -186,7 +186,26 @@
     </footer>
 
     <script>
-        document.getElementById('username').textContent = localStorage.getItem('loggedInUser') || 'Admin';
+    document.addEventListener('DOMContentLoaded', function () {
+        const loggedInUser = localStorage.getItem('loggedInUser');
+
+        // 🔒 Redirect to login page if not logged in
+        if (!loggedInUser) {
+            window.location.href = 'LOGIN 2.html';
+            return;
+        }
+
+        // Show logged in username
+        document.getElementById('username').textContent = loggedInUser || 'Admin';
+
+        // Logout functionality
+        const logoutButton = document.getElementById('logoutButton');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function () {
+                localStorage.removeItem('loggedInUser');
+                window.location.href = 'LOGIN 2.html';
+            });
+        }
 
         function loadUsers() {
             const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -248,14 +267,16 @@
 
         function updateUserApproval(email, approved) {
             let users = JSON.parse(localStorage.getItem('users')) || [];
-            users = users.map(user => 
-                user.email === email ? { ...user, approved, approvalDate: approved ? new Date().toISOString() : null } : user
+            users = users.map(user =>
+                user.email === email
+                    ? { ...user, approved, approvalDate: approved ? new Date().toISOString() : null }
+                    : user
             );
             localStorage.setItem('users', JSON.stringify(users));
             location.reload();
         }
 
-        document.getElementById('toggleApproved').addEventListener('click', function() {
+        document.getElementById('toggleApproved').addEventListener('click', function () {
             const approvedSection = document.getElementById('approvedUserSection');
             if (approvedSection.style.display === "none" || approvedSection.style.display === "") {
                 approvedSection.style.display = "block";
@@ -271,7 +292,7 @@
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
 
-        document.querySelectorAll('.dropdown a')[1].addEventListener('click', function(event) {
+        document.querySelectorAll('.dropdown a')[1].addEventListener('click', function (event) {
             event.preventDefault();
             toggleReportSection();
         });
@@ -303,17 +324,10 @@
             });
         }
 
-
-
-document.getElementById('logoutButton').addEventListener('click', function () {
-    localStorage.removeItem('loggedInUser'); // Clear stored user
-    window.location.href = 'LOGIN 2.html'; // Redirect to your login page (change as needed)
-});
-
-
-
-	    
+        // Load users on page load
         loadUsers();
-    </script>
+    });
+</script>
+
 </body>
 </html>
