@@ -199,13 +199,25 @@
         document.getElementById('username').textContent = loggedInUser || 'Admin';
 
         // Logout functionality
-        const logoutButton = document.getElementById('logoutButton');
-        if (logoutButton) {
-            logoutButton.addEventListener('click', function () {
-                localStorage.removeItem('loggedInUser');
-                window.location.href = 'LOGIN 2.html';
-            });
-        }
+       const logoutButton = document.getElementById('logoutButton');
+
+if (logoutButton) {
+    logoutButton.addEventListener('click', function () {
+        // Clear session
+        localStorage.removeItem('loggedInUser');
+        sessionStorage.clear();
+
+        // Prevent back navigation
+        history.pushState(null, null, location.href);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, location.href);
+        });
+
+        // Redirect to login page
+        window.location.href = 'LOGIN 2.html';
+    });
+}
+
 
 // Prevent back navigation after logout
 window.addEventListener('pageshow', function (event) {
@@ -345,6 +357,27 @@ window.addEventListener('pageshow', function (event) {
             });
         }
 
+
+
+
+// Redirect if accessed via back button after logout
+window.addEventListener('pageshow', function (event) {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+
+    if (!loggedInUser && (event.persisted || performance.navigation.type === 2)) {
+        window.location.href = 'LOGIN 2.html';
+    }
+});
+
+
+
+
+
+
+
+
+
+	    
         // Load users on page load
         loadUsers();
     });
