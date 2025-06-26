@@ -270,6 +270,19 @@ if (logoutButton) {
             });
         }
 
+
+
+
+
+// ✅ Move toggleDropdown() here so it's globally accessible
+function toggleDropdown() {
+    const dropdown = document.getElementById('adminDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+
+
+	    
         function approveUser(email) {
             updateUserApproval(email, true);
         }
@@ -353,12 +366,6 @@ window.addEventListener('pageshow', function (event) {
         window.location.href = 'LOGIN 2.html';
     }
 });
-
-
-function toggleDropdown() {
-            const dropdown = document.getElementById('adminDropdown');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        }
 
 
 
