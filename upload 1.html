@@ -834,7 +834,8 @@ document.getElementById('backButton').addEventListener('click', function() {
         const oldPrice = parseFloat(document.getElementById("product-old-price").value).toFixed(2);
         const stock = parseInt(document.getElementById("product-stock").value);
         const stockonshelf = parseInt(document.getElementById("product-stockonshelf").value);
-        const dateAdded = new Date().toLocaleString();
+        const dateAdded = new Date().toISOString();
+
 
         const newProduct = {
             category: document.getElementById("product-category").value,
@@ -862,7 +863,7 @@ document.getElementById('backButton').addEventListener('click', function() {
         if (editIndex !== null) {
             const price = parseFloat(document.getElementById("product-price").value).toFixed(2);
             const oldPrice = parseFloat(document.getElementById("product-old-price").value).toFixed(2);
-            const lastEdited = new Date().toLocaleString(); // Update to current date and time
+            const lastEdited = new Date().toISOString(); // Update to current date and time
             const stock = parseInt(document.getElementById("product-stock").value);
             const stockonshelf = parseInt(document.getElementById("product-stockonshelf").value);
 
