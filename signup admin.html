@@ -190,10 +190,10 @@
         const loggedInUser = localStorage.getItem('loggedInUser');
 
         // 🔒 Redirect to login page if not logged in
-        if (!loggedInUser) {
-            window.location.href = 'LOGIN 2.html';
-            return;
-        }
+        //if (!loggedInUser) {
+         //   window.location.href = 'LOGIN 2.html';
+           // return;
+        //}
 
         // Show logged in username
         document.getElementById('username').textContent = loggedInUser || 'Admin';
