@@ -303,6 +303,16 @@
             });
         }
 
+
+
+document.getElementById('logoutButton').addEventListener('click', function () {
+    localStorage.removeItem('loggedInUser'); // Clear stored user
+    window.location.href = 'login.html'; // Redirect to your login page (change as needed)
+});
+
+
+
+	    
         loadUsers();
     </script>
 </body>
