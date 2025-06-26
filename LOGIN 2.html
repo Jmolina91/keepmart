@@ -262,6 +262,38 @@
     }
 });
 
+
+  // Forgot Password Logic
+    document.getElementById('forgotPasswordLink').addEventListener('click', function (e) {
+        e.preventDefault();
+        const email = prompt("Enter your registered email:");
+        if (!email) return;
+
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        const userIndex = users.findIndex(u => u.email === email && u.approved);
+
+        if (userIndex === -1) {
+            alert("Email not found or account not approved.");
+            return;
+        }
+
+        const newPassword = prompt("Enter your new password:");
+        if (!newPassword || newPassword.length < 4) {
+            alert("Password must be at least 4 characters.");
+            return;
+        }
+
+        users[userIndex].password = newPassword;
+        localStorage.setItem('users', JSON.stringify(users));
+        alert("Password has been reset successfully.");
+    });
+
+
+
+
+
+
+        
     </script>
 </body>
 </html>
