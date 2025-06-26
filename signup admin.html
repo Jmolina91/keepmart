@@ -274,13 +274,6 @@ if (logoutButton) {
 
 
 
-// ✅ Move toggleDropdown() here so it's globally accessible
-function toggleDropdown() {
-    const dropdown = document.getElementById('adminDropdown');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-
 
 	    
         function approveUser(email) {
@@ -377,6 +370,16 @@ window.addEventListener('pageshow', function (event) {
         // Load users on page load
         loadUsers();
     });
+
+
+
+// ✅ Move toggleDropdown() here so it's globally accessible
+function toggleDropdown() {
+    const dropdown = document.getElementById('adminDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+	    
 </script>
 
 </body>
