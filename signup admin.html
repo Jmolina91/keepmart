@@ -309,11 +309,7 @@ if (logoutButton) {
             }
         });
 
-        function toggleDropdown() {
-            const dropdown = document.getElementById('adminDropdown');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        }
-
+        
         document.querySelectorAll('.dropdown a')[1].addEventListener('click', function (event) {
             event.preventDefault();
             toggleReportSection();
@@ -359,6 +355,10 @@ window.addEventListener('pageshow', function (event) {
 });
 
 
+function toggleDropdown() {
+            const dropdown = document.getElementById('adminDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
 
 
 
