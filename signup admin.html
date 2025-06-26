@@ -207,6 +207,27 @@
             });
         }
 
+// Prevent back navigation after logout
+window.addEventListener('pageshow', function (event) {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+
+    // If coming from bfcache (back button) and not logged in, redirect
+    if (event.persisted || (performance.navigation.type === 2 && !loggedInUser)) {
+        window.location.href = 'LOGIN 2.html';
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+	    
         function loadUsers() {
             const users = JSON.parse(localStorage.getItem('users')) || [];
             const pendingUsers = users.filter(user => !user.approved);
