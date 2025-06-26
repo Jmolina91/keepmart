@@ -816,17 +816,18 @@ document.getElementById('backButton').addEventListener('click', function() {
     }
 
     function logEditDetails(title, beforeEdit, afterEdit) {
-        let editDateLogs = JSON.parse(localStorage.getItem("editDateLogs")) || [];
-        const logEntry = {
-            title: title,
-            lastEdited: new Date().toLocaleString(),
-            beforeEdit: beforeEdit,
-            afterEdit: afterEdit
-        };
-        editDateLogs.push(logEntry);
-        localStorage.setItem("editDateLogs", JSON.stringify(editDateLogs));
-        updateTables(); // Refresh tables after logging edit details
-    }
+    let editDateLogs = JSON.parse(localStorage.getItem("editDateLogs")) || [];
+    const logEntry = {
+        title: title,
+        lastEdited: new Date().toISOString(),  // <-- Use ISO string here
+        beforeEdit: beforeEdit,
+        afterEdit: afterEdit
+    };
+    editDateLogs.push(logEntry);
+    localStorage.setItem("editDateLogs", JSON.stringify(editDateLogs));
+    updateTables(); // Refresh tables after logging edit details
+}
+
 
     productForm.addEventListener("submit", (e) => {
         e.preventDefault();
